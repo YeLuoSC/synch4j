@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="synch4j Maven Webapp"
+  id="myeclipse.1459522709125"
+  context-root="/synch4j"
+  j2ee-spec="6.0"
+  archive="synch4j Maven Webapp.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

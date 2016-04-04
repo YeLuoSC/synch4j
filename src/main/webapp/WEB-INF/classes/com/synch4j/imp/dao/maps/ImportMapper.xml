@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.imp.dao.ImportMapper">
+
+	<select id="getDbDate" resultType="string">
+		SELECT TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24.MI.SS') FROM DUAL
+	</select>
+	<delete id="truncateTempData">
+	    <!-- 因为以下表特殊处理了，都不删除临时表，所以每次导入时需要将临时表上一次导入的数据清除 -->
+		begin
+			DELETE FROM P#SYNCH_T_IMPORTSQL;
+			DELETE FROM P#SYNCH_T_DECRYPTDATA;
+			DELETE FROM P#SYNCH_T_BLOBCLOB;
+		end;
+	</delete>
+</mapper>

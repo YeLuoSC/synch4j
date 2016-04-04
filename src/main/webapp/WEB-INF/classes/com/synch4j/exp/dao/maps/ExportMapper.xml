@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.exp.dao.ExportMapper">
+
+	<select id="getDbDate" resultType="string">
+		SELECT TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24.MI.SS') FROM DUAL
+	</select>
+	
+	<select id="truncateTempData">
+		begin
+			delete FROM P#SYNCH_T_EXPORTSQL;
+			delete FROM P#SYNCH_T_VIEWCODE;
+			delete FROM P#SYNCH_T_FILEID;
+		end;
+	</select>
+	
+	<insert id="insertFileId">
+	 <foreach open="begin" close="end;" collection="fileIdArr" item="fileId" >
+		insert into P#SYNCH_T_FILEID(FILEID) values (#{fileId});
+		</foreach>
+	</insert>
+</mapper>

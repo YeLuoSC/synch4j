@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute.dao.Synch2ProcedureMapper">
+
+	<resultMap type="com.synch4j.po.ProcedureDefinitionPO" id="proDefinitionMap">
+    	<result property="guid" column="GUID" />
+    	<result property="name" column="NAME"/>
+    	<result property="describe" column="DESCRIBE"/>
+    	<result property="available" column="AVAILABLE"/>
+    	<result property="status" column="STATUS"/>
+    	<result property="programCode" column="PROGRAMCODE" jdbcType="CLOB" javaType="String"/>
+ 	</resultMap>
+ 	
+	<select id="getRemoteProcedure" resultMap="proDefinitionMap">
+		select * from P#SYNCH_T_REMOTEPROCEDURE where status='1' order by guid
+	</select>
+	
+	<update id="delProcedure">
+		delete from P#SYNCH_T_REMOTEPROCEDURE where guid in
+		<foreach collection="list" item="id" index="i" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</update>
+	
+	<insert id="saveProcedure" parameterType="com.synch4j.po.ProcedureDefinitionPO">
+		insert into P#SYNCH_T_REMOTEPROCEDURE(NAME,DESCRIBE,AVAILABLE,PROGRAMCODE) VALUES
+			(#{name,jdbcType=VARCHAR},#{describe,jdbcType=VARCHAR},#{available,jdbcType=CHAR},#{programCode,jdbcType=CLOB})
+	</insert>
+	
+	<update id="updateProcedure"  parameterType="com.synch4j.po.ProcedureDefinitionPO">
+		update P#SYNCH_T_REMOTEPROCEDURE set name=#{name},describe=#{describe},available=#{available},programCode=#{programCode,jdbcType=CLOB}
+		 where guid=#{guid}
+	</update>
+</mapper>

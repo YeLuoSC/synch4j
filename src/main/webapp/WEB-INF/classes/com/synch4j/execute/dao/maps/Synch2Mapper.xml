@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute.dao.Synch2Mapper">
+
+	<select id="getSynchMainLog" resultType="com.synch4j.po.SynchMainLogPO">
+		SELECT LOGID,
+		       USERID,
+		       IPADDRESS,
+		       FILENAME,
+		       STARTDATE,
+		       ENDDATE,
+		       USEDDATE,
+		       DIRECTION,
+		       REMARK,
+		       DISTRICTID,
+		       SYNSTATUS
+		  FROM P#SYNCH_T_MAINLOG WHERE DIRECTION = #{direction} ORDER BY STARTDATE DESC
+	</select>
+	
+	<select id="getExportLog" resultType="com.synch4j.po.SynchExpLogPO">
+		SELECT LOGID,
+		       EXPFILENAME,
+		       EXPPHYSDBNAME,
+		       EXPDATAS,
+		       REMARK,
+		       to_char(LASTEXPDATE, 'yyyy-mm-dd hh24:mi:ss.ff9') AS LASTDATE
+		  FROM P#SYNCH_T_EXPORTLOG
+		  WHERE LOGID = #{logId}
+		  ORDER BY LASTDATE
+	</select>
+	
+	<select id="getImportLog" resultType="com.synch4j.po.SynchImpLogPO">
+		SELECT LOGID,
+		       EXPFILENAME,
+		       EXPDATAS,
+		       EXPPHYSDBNAME,
+		       NVL(IMPUSEDDATE,0) IMPUSEDDATE,
+		       NVL(INSERTDATAS,0) INSERTDATAS,
+		       NVL(UPDATEDATAS,0) UPDATEDATAS,
+		       NVL(FAILDATAS,0) FAILDATAS,
+		       NVL(REMARK,'null') REMARK
+		  FROM P#SYNCH_T_IMPORTLOG WHERE LOGID = #{logId} ORDER BY EXPPHYSDBNAME
+	</select>
+	
+	<delete id="delMainLog">
+		delete from P#synch_t_mainlog where logid=#{logId}
+	</delete>
+	
+	<delete id="delExpLog">
+		delete from P#synch_t_exportlog where logid=#{logId}
+	</delete>
+	
+	<delete id="delImpLog">
+		delete from P#synch_t_importlog where logid=#{logId}
+	</delete>
+	
+	<select id="getCodeByAgencyId" resultType="string">
+		select code from  FASP_T_PUBPROVINCE 
+		where status='1' and guid=#{agencyId}
+	</select>
+	
+	<select id="getAgencyIdByCode" resultType="string">
+		select guid from  FASP_T_PUBPROVINCE 
+		where status='1' and code=#{code}
+	</select>
+	
+	<select id="getReportProvinceTreeByParentId" resultType="map">
+		select guid,superguid,isleaf,code,name from  FASP_T_PUBPROVINCE 
+		where status='1' 
+		start with code=#{parentId} connect by prior superguid=guid
+	</select>
+	
+	<select id="getProvinceTreeByParentId" resultType="map">
+		select guid,superguid,isleaf,code,name from  FASP_T_PUBPROVINCE 
+		where status='1' 
+		start with guid=#{parentId} connect by prior guid=superguid 
+		order by code
+	</select>
+	
+	<update id="reset">
+		update bgt_t_timeplan set status='0' where status='1'
+	</update>
+	
+	<select id="getDefaultProvince" resultType="string">
+		select PKG_CONSTANTS.GETDEFAULTPROVINCE from dual
+	</select>
+</mapper>

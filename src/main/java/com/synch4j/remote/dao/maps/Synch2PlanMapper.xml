@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.remote.dao.Synch2PlanMapper">
+	<insert id="insertAssignPlan">
+		insert into bgt_t_timeplan(docid,fileguid,provinceCode,year,userId,status,direction,appId) 
+			values 
+		(#{docId},#{fileGuid},#{provinceCode},#{year},#{userId},'0','A',#{appId})
+	</insert>
+	
+	<insert id="insertReportPlan">
+		insert into bgt_t_timeplan(docid,fileguid,provinceCode,year,userId,status,direction,appId) 
+			values 
+		(#{docId},#{fileGuid},#{provinceCode},#{year},#{userId},'0','R',#{appId})
+	</insert>
+	
+	<insert id="insertImportPlan">
+		insert into bgt_t_timeplan(docid,fileguid,provinceCode,year,userId,status,direction,appId) 
+			values 
+		(#{docId},#{fileGuid},#{provinceCode},#{year},#{userId},'0',#{direction},#{appId})
+	</insert>
+	
+	<select id="countPlanByDocIdAndFileGuid" resultType="string">
+		select count(1) from bgt_t_timeplan m where m.docid=#{docId} and m.fileGuid=#{fileGuid}
+	</select>
+	
+	<update id="runningPlanByDocIdAndFileGuid">
+		update bgt_t_timeplan set status='1' where docid=#{docId} and fileGuid=#{fileGuid}
+	</update>
+	
+	<update id="successPlanByDocIdAndFileGuid">
+		update bgt_t_timeplan set status='2' where docid=#{docId} and fileGuid=#{fileGuid}
+	</update>
+	
+	<update id="failPlanByDocIdAndFileGuid">
+		update bgt_t_timeplan set status='3' where docid=#{docId} and fileGuid=#{fileGuid}
+	</update>
+	
+	<update id="activePlanByDocIdAndFileGuid">
+		update bgt_t_timeplan set status='0' where docid=#{docId} and fileGuid=#{fileGuid}
+	</update>
+	
+	<select id="getActivePlan" resultType="com.synch4j.po.Synch2PlanPO">
+		select * from bgt_t_timeplan m where m.status='0'
+		 and not exists (select 1 from bgt_t_timeplan m1 where m1.status='1') 
+		 and m.appid=#{appId}
+	</select>
+	
+	<update id="updateRemarkByDocIdAndFileGuid">
+		update bgt_t_timeplan set remark=#{remark} where docid=#{docId} and fileGuid=#{fileGuid}
+	</update>
+	
+	<select id="getFileGuidByDocId" resultType="string">
+		select fileguid from bgt_t_exportfile where docid=#{docId}
+	</select>
+	
+	<delete id="delFileGuidDocId">
+		delete bgt_t_exportfile where docid=#{docId} and fileguid=#{fileGuid}
+	</delete>
+	
+	<select id="getCodeByAgencyId" resultType="string">
+		select code from  FASP_T_PUBPROVINCE 
+		where status='1' and guid=#{province}
+	</select>
+	
+	<select id="getTaskTypeIdByDocId" resultType="string">
+		select tasktypeid from cdt_t_taskinfo where taskid in (select taskid from bgt_t_oarelation where docid=#{docId} and tasktype='0')
+	</select>
+	
+	<select id="getDefaultProvince" resultType="string">
+		select PKG_CONSTANTS.GETDEFAULTPROVINCE from dual
+	</select>
+	
+	<select id="getFileIds" resultType="string">
+		SELECT FILEID FROM P#SYNCH_T_FILEID
+	</select>
+</mapper>

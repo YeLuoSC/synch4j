@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.log.dao.ISynchLogMapper">
+
+	<insert id="saveMainLog" parameterType="com.synch4j.po.SynchMainLogPO">
+		INSERT INTO P#SYNCH_T_MAINLOG
+		  (LOGID, USERID, IPADDRESS, FILENAME, STARTDATE, ENDDATE, USEDDATE, DIRECTION, REMARK,DISTRICTID,FILEGUID<if test="synStatus!=null">,SYNSTATUS</if>)
+		VALUES
+		  (#{logId},  #{userId}, #{ipAddress}, #{fileName}, #{startDate}, #{endDate}, #{usedDate}, #{direction}, #{remark},#{districtId},#{fileGuid}<if test="synStatus!=null">,#{synStatus}</if>)
+	</insert>
+	
+	<insert id="saveExpLog" parameterType="com.synch4j.po.SynchExpLogPO">
+		INSERT INTO P#SYNCH_T_EXPORTLOG
+		  (LOGId, EXPFILENAME, EXPPHYSDBNAME, EXPDATAS, LASTEXPDATE, REMARK
+			<if test="districtId!=null">
+				,DISTRICTID 
+			</if>
+		)
+		VALUES
+		  (#{logId}, #{expFileName}, #{expPhysDBName}, #{expDatas}, ${lastDate}, #{remark}
+			<if test="districtId!=null">
+		  		,#{districtId}
+			</if>
+		  )
+	</insert>
+	
+	<insert id="saveImpLog" parameterType="com.synch4j.po.SynchImpLogPO">
+		INSERT INTO P#SYNCH_T_IMPORTLOG
+		  (LOGID, EXPFILENAME, EXPDATAS, EXPPHYSDBNAME)
+		VALUES
+		  (#{logId}, #{expFileName}, #{expDatas}, #{expPhysDBName})
+	</insert>
+	
+	<select id="getMainLog" resultType="com.synch4j.po.SynchMainLogPO">
+		select *
+		  from P#synch_t_mainlog
+		 where logid=#{logId}
+	</select>
+	
+	<select id="getExpLog" resultType="com.synch4j.po.SynchExpLogPO">
+		select *
+		  from P#synch_t_exportlog
+		 where logid=#{logId}
+	</select>
+	
+	<select id="getImpLog" resultType="com.synch4j.po.SynchImpLogPO">
+		select *
+		  from P#synch_t_importlog
+		 where logid=#{logId}
+	</select>
+	
+	<delete id="delMainLog">
+		delete from P#synch_t_mainlog where logid=#{logId}
+	</delete>
+	
+	<delete id="delExpLog">
+		delete from P#synch_t_exportlog where logid=#{logId}
+	</delete>
+	
+	<delete id="delImpLog">
+		delete from P#synch_t_importlog where logid=#{logId}
+	</delete>
+	
+	<update id="updateMainLog">
+		update P#synch_t_mainlog set enddate=#{endTime},useddate=#{useTime} where logid=#{logId}
+	</update>
+	
+	<update id="updateImportLog" parameterType="com.synch4j.po.SynchImpLogPO">
+		update P#synch_t_importlog set 
+		<if test="impUsedDate!=null">IMPUSEDDATE=#{impUsedDate},</if>
+		<if test="insertDatas!=null">INSERTDATAS=#{insertDatas},</if>
+		<if test="failDatas!=null">FAILDATAS=#{failDatas}</if>
+		<if test="remark!=null">REMARK=#{remark}</if>
+		 where logid=#{logId} and expphysdbname=#{expPhysDBName}
+	</update>
+	
+	<update id="updateMainLogSynStatus">
+		update P#synch_t_mainlog set synstatus=#{synStatus} where logid=#{logId}
+	</update>
+	
+	<update id="updateMainLogSynStatusByFileGuid">
+		update P#synch_t_mainlog set synstatus=#{synStatus} where fileguid=#{fileGuId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.resolver.imp.dao.IImportResolverMapper">
+	
+	<insert id="insertDecryptData">
+		INSERT INTO P#SYNCH_T_DECRYPTDATA
+		  (LOGID, PHYSDBNAME, SYNCHDATA)
+		VALUES
+		  (#{logId}, #{physDBName}, #{synchData})
+	</insert>
+	
+	<insert id="insertBlobOrClob">
+		INSERT INTO P#SYNCH_T_BLOBCLOB
+		  (LOGID, PHYSDBNAME, COLUNAME, CONDITION, BDATA, CDATA, GUID)
+		VALUES
+		  (#{logId}, #{physDBName}, #{colName}, #{condition}, EMPTY_BLOB(), EMPTY_CLOB(), #{guid})
+	</insert>
+</mapper>

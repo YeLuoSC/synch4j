@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute.dao.Synch2FreeAssignMapper">
+
+	<!-- <select id="getPatternTree" resultType="com.tjhq.commons.inputcomponent.po.TreePO">
+		   SELECT PATTERNID id,'*' pId,patternname name FROM SYNCH_T_FREEPATTERN
+	</select>
+	
+	<select id="getPatternById" resultType="com.synch4j.po.Synch2FreePatternPO">
+	   		SELECT SOURCEPROVINCE,SOURCEYEAR,BUSIDATA,IMPORTPARTITIONMODE,PATTERNID,PATTERNNAME,SETTINGDATA,STATUS,SYSTEMDATA,TEMPLATEDATA,ISALWAYSASSIGN FROM SYNCH_T_FREEPATTERN WHERE PATTERNID=#{patternId}
+	</select>
+	
+	<delete id="delPatternById">
+			DELETE FROM SYNCH_T_FREEPATTERN WHERE PATTERNID=#{patternId}
+	</delete> -->
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.resolver.exp.dao.IExportResolverMapper">
+
+	<select id="getSettingTableSynchObjectList" resultType="map">
+		SELECT A.PHYSDBNAME,
+		       B.TABLENAME,
+		       B.BIGDATA,
+		       A.SYNCHORDER,
+		       A.SYNCHCONDITION,
+		       A.SYNCHEDHANDLER,
+		       A.SYNCHRECOGCOL,
+		       A.FILTERCOL,
+		       A.TABLETYPE,
+		       A.PKCOL,
+		       A.NETTYPE,
+		       A.MAXROW,
+		       A.REMARK,
+		       A.ISALWAYSEXPORT 
+		  FROM P#SYNCH_T_SETTING A
+		 LEFT JOIN SYNCH_V_USERTABLE B
+		    ON A.PHYSDBNAME = B.PHYSDBNAME
+		    ORDER BY A.SYNCHORDER
+	</select>
+	
+	<select id="getIsBigDataByPhysDbName" resultType="string">
+		select BIGDATA from SYNCH_V_USERTABLE m where m.PHYSDBNAME = #{tableName}
+	</select>
+	
+	<select id="getPkListByPhysDbName" resultType="string">
+		SELECT T1.COLUMN_NAME
+		  FROM USER_CONS_COLUMNS T1, USER_CONSTRAINTS T2
+		 WHERE T1.CONSTRAINT_NAME = T2.CONSTRAINT_NAME
+		   AND T2.CONSTRAINT_TYPE = 'P'
+		   AND T1.TABLE_NAME = #{tableName}
+	</select>
+	
+</mapper>

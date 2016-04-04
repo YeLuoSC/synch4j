@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.callback.dao.ICallbackMapper">
+	<resultMap type="hashmap" id="dataMapSyn">
+		<result property="VIEW_NAME" column="VIEW_NAME" jdbcType="VARCHAR" javaType="string"/>
+		<result property="TEXT" column="TEXT" jdbcType="VARBINARY" javaType="string"/>
+	</resultMap>
+	
+	<select id="getIsBigDataByPhysDbName" resultType="string">
+		select BIGDATA from SYNCH_V_USERTABLE m where m.PHYSDBNAME = #{tableName}
+	</select>
+	
+	<update id="createTempTable">
+		<![CDATA[
+		 {call DICT_SYNCHRONIZE_CREATE_TABLE(#{physDBName,mode=IN,jdbcType=VARCHAR},#{originalPhysDBName,mode=IN,jdbcType=VARCHAR})}
+		]]>
+	</update>
+	
+	<update id="synchTableData" statementType="CALLABLE">
+		<![CDATA[
+		    {call DICT_SYNCHRONIZE_DATA(#{physDBName,mode=IN,jdbcType=VARCHAR},#{originalPhysDBName,mode=IN,jdbcType=VARCHAR})}
+		]]>
+	</update>
+	
+	<update id="delTempTable" statementType="CALLABLE">
+		<![CDATA[
+			{call DICT_SYNCHRONIZE_DEL_TABLE(#{physDBName,mode=IN,jdbcType=VARCHAR})}
+		]]>
+	</update>
+	
+	<update id="updateCompileInvalid" statementType="CALLABLE">
+		begin
+			dbms_utility.compile_schema(user,false);
+		end;
+	</update>
+	
+</mapper>

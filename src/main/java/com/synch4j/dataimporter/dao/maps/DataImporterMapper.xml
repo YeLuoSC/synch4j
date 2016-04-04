@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.dataimporter.dao.IDataImporterMapper">
+	<resultMap type="hashmap" id="decryptDataMap">
+		<result property="PHYSDBNAME" column="PHYSDBNAME" jdbcType="VARCHAR" javaType="String"/>
+		<result property="SYNCHDATA" column="SYNCHDATA" jdbcType="VARCHAR" javaType="String"/>
+	</resultMap>
+	
+	<select id="getTableData"  resultMap="decryptDataMap">
+	<![CDATA[SELECT PHYSDBNAME, SYNCHDATA 
+                  FROM P#SYNCH_T_DECRYPTDATA 
+                 WHERE LOGID = #{logId} 
+                  AND PHYSDBNAME=#{physDBName} ]]>
+	</select>
+	
+	<select id="getTableColumns" parameterType="string" resultType="map">
+	<![CDATA[SELECT COLUMN_NAME, DATA_TYPE FROM USER_TAB_COLUMNS WHERE TABLE_NAME = #{physDBName}]]>
+
+	</select>
+	
+	<insert id="insertExportData">
+		<![CDATA[
+			${sql}
+		]]>
+	</insert>
+	
+	<select id="getNeedUpdateBlobOrClob" resultType="map">
+		SELECT A.PHYSDBNAME, A.COLUNAME, B.DATA_TYPE, A.CONDITION, A.GUID
+			  FROM P#SYNCH_T_BLOBCLOB A, USER_TAB_COLUMNS B
+			 WHERE A.PHYSDBNAME = B.TABLE_NAME
+			   AND B.COLUMN_NAME=A.COLUNAME
+			   AND A.LOGID = #{logId} 
+			    AND A.PHYSDBNAME = #{physDBName} 
+				ORDER BY DBVERSION
+	</select>
+	
+	<update id="callProcedure" statementType="CALLABLE">
+		<![CDATA[
+		    {call execProcedure (#{content, mode=IN, jdbcType=CLOB})}
+		]]>
+	</update>
+</mapper>

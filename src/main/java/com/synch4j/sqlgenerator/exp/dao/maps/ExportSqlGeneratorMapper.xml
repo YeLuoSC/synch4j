@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.sqlgenerator.exp.dao.IExportSqlGeneratorMapper">
+	
+	<insert id="insertExportSQL"> 
+		INSERT INTO P#SYNCH_T_EXPORTSQL
+		  (LOGID, PHYSDBNAME, EXPSQL,STATUS)
+		VALUES
+		  (#{logId}, #{physDBName}, #{sql},'1')
+	</insert>
+	
+	<select id="getLastExpDate" resultType="string">
+		SELECT TO_CHAR(MAX(LASTEXPDATE), 'yyyy-mm-dd hh24:mi:ss.ff9') FROM P#SYNCH_T_EXPORTLOG WHERE EXPPHYSDBNAME = #{expPhysDBName} 
+	</select>
+</mapper>

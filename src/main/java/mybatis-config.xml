@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>  
+		<setting name="defaultStatementTimeout" value="25"/>  
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="callSettersOnNulls" value="true" />
+		<setting name="logImpl" value="LOG4J" />	
+	</settings>
+	<!-- 分页插件 -->
+	<!-- <plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper"></plugin>
+	</plugins> -->
+</configuration>
+	

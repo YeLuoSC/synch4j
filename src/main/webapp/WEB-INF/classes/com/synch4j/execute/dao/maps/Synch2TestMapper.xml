@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute.dao.ISynch2TestMapper">
+
+	<select id="getData" resultType="map">
+		     SELECT docid,
+		       fileguid,
+		       provincecode,
+		       year,
+		       (case status when '0' then '等待执行'
+             when '1' then '执行中'
+               when '2' then '执行成功'
+                 else '执行失败' end) status,
+		       remark,
+		       to_char(runtime,'yyyy-MM-dd hh24:mi:ss') runtime,
+		       appid,
+		       direction
+		  FROM bgt_t_timeplan
+		  ORDER BY RUNTIME DESC
+	</select>
+	
+	<update id="reset">
+		update bgt_t_timeplan set status='0' where fileguid in (<foreach collection="list" separator="," item="item">#{item}</foreach>)
+	</update>
+</mapper>
