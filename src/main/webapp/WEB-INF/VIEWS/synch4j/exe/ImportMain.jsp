@@ -7,12 +7,12 @@
 		<link rel="stylesheet" href="<%=path %>/css/zTree/zTreeStyle/zTreeStyle.css" type="text/css"></link>
 		<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.base.css" type="text/css" /> 
 		<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.ui-smoothness.css" type="text/css" />
-		<script type="text/javascript" src="<%=path %>/scripts/jquery.js"></script>
-	  	<script type="text/javascript" src="<%=path %>/scripts/json2.js"></script> 
-	  	<script type="text/javascript" src="<%=path %>/scripts/ajaxfileupload.js"></script>  
+		<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jquery-1.10.2.min.js"></script>
+	  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script> 
+	  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/ajaxfileupload.js"></script>  
 	  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jqxGrid/jqx-all.js"></script>
 	  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jquery-plugin/blockUI/jquery.blockUI.js"></script>
-	  	<script type="text/javascript" src="<%=path %>/scripts/jquery.ztree.all-3.5.min.js"></script>   
+	  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/zTree/jquery.ztree.all-3.5.min.js"></script>   
 	</head>
 	<script>
   $(document).ready(function () {
@@ -281,7 +281,7 @@
 						theme : false,
 						top : '50%'
 					},
-					message : "正在导入中...<br/><img src='static/app/synch2/js/jquery-plugin/blockUI/loading.gif'>"
+					message : "正在导入中...<br/><img src='<%=path %>/scripts/synch4j/js/jquery-plugin/blockUI/loading.gif'>"
 				});
 			$.ajaxFileUpload({
 				 fileElementId:'fileName', 
@@ -292,7 +292,7 @@
 				 uploadCallback : function(e){
 				 	alert("导入成功！");
 				 	hideShade();
-				 }/*,
+				 },
 				 success: function (data, status)            //相当于java中try语句块的用法
                 {   hideShade();  
 					 if(data.success){ 
@@ -303,8 +303,8 @@
                  },
                  error : function(){
                  	hideShade(); 
-					//alert("导入成功");  
-                 }*/
+					alert("导入失败");  
+                 }
 			 });  
 		});
   });

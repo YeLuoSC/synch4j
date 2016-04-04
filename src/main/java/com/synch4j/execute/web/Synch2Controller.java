@@ -148,41 +148,38 @@ public class Synch2Controller {
 	}
 	
 	@RequestMapping(value = "/import")
-	public void executeImp(HttpServletRequest request,
+	@ResponseBody
+	public Object executeImp(HttpServletRequest request,
 			HttpServletResponse response,MultipartFile fileName) throws Exception {
-		PrintWriter out = response.getWriter();
 		JSONObject resultObj = new JSONObject();
 		if (!ServletFileUpload.isMultipartContent(request)) {
 			resultObj.put("success", false);
 			resultObj.put("erroInfo", "不支持的导入协议！");
-			out.print(resultObj.toString());
-			return;
+			return resultObj;
 		}
 
 		if(fileName == null){
-			throw new Exception("系统没有解析到数据文件！");
+			resultObj.put("success", false);
+			resultObj.put("erroInfo", "系统没有解析到数据文件！");
+			return resultObj;
 		}
 
 		if (!"ZIP".equalsIgnoreCase(fileName.getOriginalFilename().substring(
 				fileName.getOriginalFilename().length() - 3))) {
-			throw new Exception("系统无法解析的文件【" + fileName.getName() + "】");
+			resultObj.put("success", false);
+			resultObj.put("erroInfo", "系统无法解析的文件【" + fileName.getName() + "】");
+			return resultObj;
 		}
 		InputStream is = null;
 		try{
 			is = fileName.getInputStream();
 			synchBeginImpl.SingleThreadImport(is);
 			resultObj.put("success", true);
-			out.print(resultObj.toString());
 		}catch(Exception e){
 			logger.info("数据导入失败:" + e.getMessage());
 			e.printStackTrace();
-		}finally{
-			if(is != null){
-				is.close();
-			}
-			out.flush();
-			out.close();
 		}
+		return resultObj;
 	}
 	
 	@ResponseBody

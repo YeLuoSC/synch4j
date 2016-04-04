@@ -8,11 +8,11 @@
 	<link rel="stylesheet" href="<%=path %>/css/zTree/zTreeStyle/zTreeStyle.css" type="text/css"></link>
 	<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.base.css" type="text/css" /> 
 	<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.ui-smoothness.css" type="text/css" />
-	<script type="text/javascript" src="<%=path %>/scripts/jquery.js"></script>
-  	<script type="text/javascript" src="<%=path %>/scripts/json2.js"></script>   
+	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jquery-1.10.2.min.js"></script>
+  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>   
   	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jqxGrid/jqx-all.js"></script>
   	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jquery-plugin/blockUI/jquery.blockUI.js"></script>
-  	<script type="text/javascript" src="<%=path %>/scripts/jquery.ztree.all-3.5.min.js"></script>   
+  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/zTree/jquery.ztree.all-3.5.min.js"></script>   
 
   	
   </head>
@@ -168,7 +168,7 @@
 						theme : false,
 						top : '50%'
 					},
-					message : "正在处理操作...<br/><img src='static/app/synch2/js/jquery-plugin/blockUI/loading.gif'>"
+					message : "正在处理操作...<br/><img src='<%=path %>/scripts/synch4j/js/jquery-plugin/blockUI/loading.gif'>"
 				});
         	var assignTree = $.fn.zTree.getZTreeObj("assignTree");
         	var provinceList = assignTree.getCheckedNodes();
@@ -212,7 +212,7 @@
 						theme : false,
 						top : '50%'
 					},
-					message : "正在处理操作...<br/><img src='static/app/synch2/js/jquery-plugin/blockUI/loading.gif'>"
+					message : "正在处理操作...<br/><img src='<%=path %>/scripts/synch4j/js/jquery-plugin/blockUI/loading.gif'>"
 				});
        	var reportTree = $.fn.zTree.getZTreeObj("reportTree");
        	var provinceList = reportTree.getCheckedNodes();
@@ -275,7 +275,7 @@
 	            data:{
 	            	logId:row.logId
 	            }, 
-	            url: "synch2/execute/getExportDetailLogMain.do?"+tokenParam
+	            url: "getExportDetailLogMain.do"
 	        }; 
 			
 	        var exportDetailAdapter = new $.jqx.dataAdapter(exportDetailSource);
