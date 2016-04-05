@@ -45,11 +45,6 @@ public class SynchPO implements Comparable<SynchPO>{
 	private List<String> pkList;
 	
 	/**
-	 * 同步完成后处理方法 spring Bean ID
-	 */
-	private String synchedHandler;
-	
-	/**
 	 * 同步标识列 (时间戳)
 	 */
 	private String synchRecogCol;
@@ -65,24 +60,9 @@ public class SynchPO implements Comparable<SynchPO>{
 	private int maxRow;
 	
 	/**
-	 * 网络类型0内网  1外网
-	 */
-	private String netType;
-	
-	/**
-	 * 导入或导出
-	 */
-	private String direction;
-	
-	/**
 	 * 备注信息
 	 */
 	private String remark;
-	
-	/**
-	 * 是否同步0否 1为是
-	 */
-	private String isSynch;
 	
 	/**
 	 * 过滤列
@@ -100,6 +80,21 @@ public class SynchPO implements Comparable<SynchPO>{
 	 */
 	private String isAlwaysExport;
 	
+	/**
+	 * 是否同步0否 1为是
+	 */
+	private String isSynch;
+	
+	
+	
+	public String getIsSynch() {
+		return isSynch;
+	}
+
+	public void setIsSynch(String isSynch) {
+		this.isSynch = isSynch;
+	}
+
 	/**
 	 * 防止在创建同步对象后，没有设置主键的list，会有空指针错误。
 	 */
@@ -164,14 +159,6 @@ public class SynchPO implements Comparable<SynchPO>{
 		this.pkList = pkList;
 	}
 
-	public String getSynchedHandler() {
-		return synchedHandler;
-	}
-
-	public void setSynchedHandler(String synchedHandler) {
-		this.synchedHandler = synchedHandler;
-	}
-
 	public String getSynchRecogCol() {
 		return synchRecogCol;
 	}
@@ -196,36 +183,12 @@ public class SynchPO implements Comparable<SynchPO>{
 		this.maxRow = maxRow;
 	}
 
-	public String getNetType() {
-		return netType;
-	}
-
-	public void setNetType(String netType) {
-		this.netType = netType;
-	}
-
-	public String getDirection() {
-		return direction;
-	}
-
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-
 	public String getRemark() {
 		return remark;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public String getIsSynch() {
-		return isSynch;
-	}
-
-	public void setIsSynch(String isSynch) {
-		this.isSynch = isSynch;
 	}
 
 	public String getFilterCol() {

@@ -49,29 +49,15 @@ public class Synch2ConfigController {
 		List<SynchPO> dataList = synch2ConfigService.getSynchConfigList(physDBName, tableName);
 		for(int i=0;i<dataList.size();i++){
 			SynchPO synchPO = (SynchPO)dataList.get(i);
-			if(synchPO.getIsSynch().equals("0")){
-				
-				List<String> recogColList = synch2ConfigService.getTableRecogColList(synchPO.getPhysDBName());
-				//由于下发，本系统设置的应该只是设置表，每张设置表的PK都不同且没有固定的规范，
-				//所以将自动勾选主键的功能去掉，全部由实施人员去设置每个表的主键
-//				List<String> columnList = getSynchConfigService().getTableColumnList(synchObjectBean.getPhysDBName());
-//				for(int t=0;t<columnList.size();t++){
-//					if(columnList.get(t).equals("GUID")||columnList.get(t).equals("DATAKEY")
-//							||columnList.get(t).equals("YEAR")/*||columnList.get(t).equals("PROVINCE")*/){ 
-//						synchObjectBean.getPkList().add((String)columnList.get(t));  
-//					}
-//				}
-				for(int t=0;t<recogColList.size();t++){
-					if(recogColList.get(t).equals("DBVERSION")){
-						synchPO.setSynchRecogCol(recogColList.get(t));   
-					}
+			List<String> recogColList = synch2ConfigService.getTableRecogColList(synchPO.getPhysDBName());
+			for(int t=0;t<recogColList.size();t++){
+				if(recogColList.get(t).equals("DBVERSION")){
+					synchPO.setSynchRecogCol(recogColList.get(t));   
 				}
 			}
 		} 
-		
 		map.put("result", dataList);
 		return map; 
-		
 	}
 	
 	@RequestMapping(value = "/getTableColumnList")

@@ -204,7 +204,7 @@
   				
   			}
   		});
-  		var objJson = Hq.JSON.stringify(objArr);
+  		var objJson = JSON.stringify(objArr);
   		$.ajax({   
             type:"post",
             url: "procedureConfig/saveRemoteProcedure.do", 

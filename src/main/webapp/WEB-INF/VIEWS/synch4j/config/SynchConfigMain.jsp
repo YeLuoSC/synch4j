@@ -6,8 +6,8 @@
     <title>数据同步设置</title>
 	<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.base.css" type="text/css" /> 
 	<link rel="stylesheet" href="<%=path %>/scripts/synch4j/css/styles/jqx.ui-smoothness.css" type="text/css" />
-	<script type="text/javascript" src="<%=path %>/scripts/jquery.js"></script>
-  	<script type="text/javascript" src="<%=path %>/scripts/json2.js"></script>   
+	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jquery-1.10.2.min.js"></script>
+  	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>   
   	<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/jqxGrid/jqx-all.js"></script>
   	    
   	<script type="text/javascript"> 
@@ -413,7 +413,7 @@
         	$.ajax({
                  contentType: "application/json", 
                  url: "saveSynchPO.do",
-                 data: {datas:Hq.JSON.stringify(data),map:Hq.JSON.stringify(map)},    
+                 data: {datas:JSON.stringify(data),map:JSON.stringify(map)},    
                  dataType: "json", 
                  success: function(data){ 
                 	 alert("保存成功");

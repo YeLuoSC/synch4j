@@ -432,7 +432,7 @@ public class ImportZipFileResolver implements IImportResolver{
 		} else {
 			sql.append(" CDATA ");
 		}
-		sql.append(" FROM SYNCH_T_BLOBCLOB WHERE ");
+		sql.append(" FROM P#SYNCH_T_BLOBCLOB WHERE ");
 		sql.append(" LOGID = '" + logID + "' ");
 		sql.append("AND PHYSDBNAME = '" + physDBName + "' ");
 		sql.append("AND COLUNAME = '" + colName + "' ");

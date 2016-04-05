@@ -66,13 +66,10 @@ public class CommonExportDbResolver implements IExportSynchPOResolver {
 				if(dataMap.get("SYNCHCONDITION") == null){
 					synchPO.setSynchCondition(" WHERE 1=1 ");
 				}
-				synchPO.setSynchedHandler(dataMap.get("SYNCHEDHANDLER") == null?"":((String)dataMap.get("SYNCHEDHANDLER")).trim());
 				synchPO.setSynchRecogCol(dataMap.get("SYNCHRECOGCOL") == null?"":(String)dataMap.get("SYNCHRECOGCOL"));
 				synchPO.setTableType(dataMap.get("TABLETYPE") == null?"":(String)dataMap.get("TABLETYPE"));
-				synchPO.setNetType(dataMap.get("NETTYPE") == null?"":(String)dataMap.get("NETTYPE"));
 				synchPO.setRemark(dataMap.get("REMARK") == null?"":(String)dataMap.get("REMARK"));
 				synchPO.setMaxRow(dataMap.get("MAXROW") == null?0: Integer.valueOf(String.valueOf(dataMap.get("MAXROW"))));
-				synchPO.setIsSynch(dataMap.get("ISSYNCH") == null?"":(String)dataMap.get("ISSYNCH"));
 				synchPO.setIsAlwaysExport(dataMap.get("ISALWAYSEXPORT") == null?"":(String)dataMap.get("ISALWAYSEXPORT"));
 				synchPO.setPkList(exportResolverMapper.getPkListByPhysDbName(tableName));
 				resultList.add(synchPO);

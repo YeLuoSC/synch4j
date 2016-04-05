@@ -80,11 +80,8 @@ public class SynchToolUtil {
 				synchPO.setSynchCondition(" WHERE 1=1 ");
 			}
 			//代码走到此处，objBean中的条件一定不为null了；
-			
-			synchPO.setSynchedHandler(dataMap.get("SYNCHEDHANDLER") == null?"":((String)dataMap.get("SYNCHEDHANDLER")).trim());
 			synchPO.setSynchRecogCol(dataMap.get("SYNCHRECOGCOL") == null?"":(String)dataMap.get("SYNCHRECOGCOL"));
 			synchPO.setTableType(dataMap.get("TABLETYPE") == null?"":(String)dataMap.get("TABLETYPE"));
-			synchPO.setNetType(dataMap.get("NETTYPE") == null?"":(String)dataMap.get("NETTYPE"));
 			synchPO.setRemark(dataMap.get("REMARK") == null?"":(String)dataMap.get("REMARK"));
 			synchPO.setMaxRow(dataMap.get("MAXROW") == null?0: Integer.valueOf(String.valueOf(dataMap.get("MAXROW"))));
 			synchPO.setIsSynch(dataMap.get("ISSYNCH") == null?"":(String)dataMap.get("ISSYNCH"));
@@ -219,11 +216,9 @@ public class SynchToolUtil {
 		resultMap.put("synchOrder", synchPO.getSynchOrder());
 		resultMap.put("synchCondition", synchPO.getSynchCondition());
 		resultMap.put("pkCol", ArrayListJoin(synchPO.getPkList(), ","));
-		resultMap.put("synchedHandler", synchPO.getSynchedHandler());
 		resultMap.put("synchRecogCol", synchPO.getSynchRecogCol());
 		resultMap.put("maxRow", synchPO.getMaxRow());
 		resultMap.put("tableType", synchPO.getTableType());
-		resultMap.put("netType", synchPO.getNetType());
 		resultMap.put("remark", synchPO.getRemark());
 		resultMap.put("filterCol", synchPO.getFilterCol());
 		return resultMap;
