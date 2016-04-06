@@ -146,7 +146,7 @@ public abstract class AbsExportZipStrategy implements IBaseExportStrategy{
 			fos = new FileOutputStream(zipPath);
 			zos = new CZipOutputStream(fos, "GBK");
 			
-			synchList =  SynchResolverManager.getExportSynchList(mode);;
+			synchList =  SynchResolverManager.getExportSynchList(mode, context);;
 			
 			//导出前调用，实现类的接口，如果子类算法不需要回调，可以重写该方法,空实现；
 			prepareExportCallback(synchList);

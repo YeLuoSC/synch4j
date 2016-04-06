@@ -39,13 +39,14 @@ public class SynchResolverManager {
 	private static Logger logger = Logger.getLogger(SynchResolverManager.class);
 	/**
 	 * 该方法需要调用的解析器途径和appId，根据各类途径解析后，返回同步对象集合
+	 * @param context TODO
 	 * @return
 	 * @throws NotSupportAppIdException 
 	 */
-	public static List<SynchPO> getExportSynchList(ExportMode mode) throws ErrorConfigureException, NotSupportAppIdException{
+	public static List<SynchPO> getExportSynchList(ExportMode mode, Synch2Context context) throws ErrorConfigureException, NotSupportAppIdException{
 		//确保该list不会为空，如果需要多个解析器，第一个返回空，第二个能顺利addAll
 		String[] beanNames = getExportResolverBeanNamesByProperties(mode);
-		List<SynchPO> returnList = getReturnList(beanNames,mode);
+		List<SynchPO> returnList = getReturnList(beanNames,mode, context);
 		return returnList;
 	}
 	
@@ -76,16 +77,17 @@ public class SynchResolverManager {
 	
 	/**
 	 * 通过bean名称（首字母小写）和appId，调用解析器的解析方法
+	 * @param context TODO
 	 * @param beanName
 	 * @return
 	 */
-	private static List<SynchPO> getReturnList(String[] beanIds,ExportMode mode){
+	private static List<SynchPO> getReturnList(String[] beanIds,ExportMode mode, Synch2Context context){
 		List list = CallbackManager.getBeansByBeanIds(beanIds);
 		IExportSynchPOResolver resolver;
 		List<SynchPO> returnList = new ArrayList<SynchPO>();
 		for(Object obj : list){
 			resolver = (IExportSynchPOResolver)obj;
-			returnList.addAll(resolver.resolve(mode));
+			returnList.addAll(resolver.resolve(mode, context));
 		}
 		
 		return returnList;

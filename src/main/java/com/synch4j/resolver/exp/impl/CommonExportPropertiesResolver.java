@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.synch4j.Synch2Context;
 import com.synch4j.po.SynchPO;
 import com.synch4j.resolver.exp.IExportSynchPOResolver;
 import com.synch4j.synchenum.ExportMode;
@@ -25,7 +26,7 @@ public class CommonExportPropertiesResolver implements IExportSynchPOResolver{
 Logger logger = Logger.getLogger(CommonExportPropertiesResolver.class);
 	
 	@Override
-	public List<SynchPO> resolve(ExportMode mode) {
+	public List<SynchPO> resolve(ExportMode mode, Synch2Context context) {
 		logger.info("CommonExportPropertiesResolver解析器开始工作");
 		String[] tables = SynchToolUtil.getValueFromProperties(SynchConstants.SYSTEM_TABLE).split(",");
 		if(tables == null ){

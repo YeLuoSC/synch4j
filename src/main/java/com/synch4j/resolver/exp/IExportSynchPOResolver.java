@@ -2,6 +2,7 @@ package com.synch4j.resolver.exp;
 
 import java.util.List;
 
+import com.synch4j.Synch2Context;
 import com.synch4j.po.SynchPO;
 import com.synch4j.synchenum.ExportMode;
 
@@ -13,5 +14,5 @@ import com.synch4j.synchenum.ExportMode;
  */
 public interface IExportSynchPOResolver {
 
-	public List<SynchPO> resolve(ExportMode mode);
+	public List<SynchPO> resolve(ExportMode mode, Synch2Context context);
 }
