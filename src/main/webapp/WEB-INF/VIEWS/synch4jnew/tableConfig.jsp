@@ -14,6 +14,7 @@
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
+<script src="<%=path %>/scripts/synch4jnew/tableConfig.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>
 
 
@@ -32,12 +33,7 @@
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
 	
-	var app = angular.module('myapp',[]);
-	app.controller('myCtrl',function($scope,$http){
-		$http.get("config2/getSynchSettingList.do").success(function(response){
-			$scope.data=response.result;
-		});
-	});
+	
 </script>
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
@@ -130,35 +126,49 @@
 				
 		
 		<div class="row"  ng-controller="myCtrl">
-			<div class="col-lg-12">
+			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Advanced Table</div>
 					<div class="panel-body">
-						<table data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="synchOrder" data-sort-order="asc">
+						<table class="table table-striped table-hover">
 						    <thead>
 						    <tr>
-						        <th class="col-lg-1" data-field="state" data-checkbox="true" >选择</th>
-						        <th class="col-lg-1"  data-field="synchOrder" data-sortable="true">导入时顺序</th>
-						        <th class="col-lg-2"  data-field="physDBName"  data-sortable="true">物理表名</th>
-						        <th class="col-lg-2"  data-field="tableType" data-sortable="true">表类型</th>
-						        <th class="col-lg-1"  data-field="maxRow" data-sortable="true">单次导出最大行数</th>
-						        <th class="col-lg-2"  data-field="synchRecogCol">时间戳列名</th>
-						        <th class="col-lg-1" data-field="condition">导出条件设置</th>
-						        <th class="col-lg-1"  data-field="filterCol">过滤列</th>
-						        <th class="col-lg-1"  data-field="remark">备注</th>
+						        <th><input type="checkbox"  ng-model="allchecked" ng-change="checkAll(allchecked)"/></th>
+						        <th>导入时顺序</th>
+						        <th>物理表名</th>
+						        <th>表类型</th>
+						        <th>单次导出最大行数</th>
+						        <th>时间戳列名</th>
+						        <th>导出条件设置</th>
+						        <th>过滤列</th>
+						        <th>操作</th>
 						    </tr>
 						    </thead>
 						    <tbody>
 						    	<tr ng-repeat="x in data">
-						    		<td><input type="checkbox" />{{$index + 1}}</td>
-						    		<td>{{x.synchOrder}}</td>
+						    		<td><input type="checkbox" ng-model="x.isSynch"/></td>
+						    		<td><span ng-if="!x.editable">{{x.synchOrder}}</span><input type="number" class="form-control" ng-if="x.editable" ng-model="x.synchOrder"/></td>
 						    		<td>{{x.physDBName}}</td>
-						    		<td>{{x.tableType}}</td>
-						    		<td>{{x.maxRow}}</td>
-						    		<td>{{x.synchRecogCol}}</td>
-						    		<td>{{x.condition}}</td>
-						    		<td>{{x.filterCol}}</td>
-						    		<td>{{x.remark}}</td>
+									<td>
+										<span ng-if="!x.editable"><span ng-if="x.tableType==1">普通表</span><span ng-if="x.tableType==2">附件表</span></span>
+										<span ng-if="x.editable">
+											<%--<select class="form-control" ng-model="x.tableType">
+												<option ng-repeat="tableType in tableTypes" value="{{tableType.value}}">{{tableType.name}}</option>
+											</select>
+										--%>
+											<select class="form-control" ng-model="x.tableType" ng-options="tableType.value as tableType.name for tableType in tableTypes">
+												
+											</select>
+										</span>
+									</td>
+									<td><span ng-if="!x.editable">{{x.maxRow}}</span><span ng-if="x.editable"><input type="number" class="form-control" ng-model="x.maxRow"/></span></td>
+						    		<td><span ng-if="!x.editable">{{x.synchRecogCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.synchRecogCol"/></span></td>
+						    		<td><span ng-if="!x.editable">{{x.condition}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.condition"/></span></td>
+						    		<td><span ng-if="!x.editable">{{x.filterCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.filterCol"/></span></td>
+						    		<td>
+						    			<span class="btn btn-primary btn-xs" title="编辑" ng-click="x.editable=true" ng-if="!x.editable"><i class="glyphicon glyphicon-pencil"></i></span>
+						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="x.editable=false" ng-if="x.editable"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+						    		</td>
 						    	</tr>
 						    </tbody>
 						</table>

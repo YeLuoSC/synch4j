@@ -20,11 +20,11 @@ public class Synch4jController {
 	@Resource
 	private ISynch4jConfigService synch4jConfigServiceImpl;
 
-	private static String RETURN_ROOT = "/synch4j/";
+	private static String RETURN_ROOT = "/synch4jnew/";
 	
 	@RequestMapping("")
 	public String forwardConfigMain() {
-		return RETURN_ROOT+"tables";
+		return RETURN_ROOT+"tableConfig";
 	}
 	
 	@RequestMapping(value = "/getSynchSettingList")
