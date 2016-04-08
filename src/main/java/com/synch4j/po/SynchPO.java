@@ -3,11 +3,14 @@ package com.synch4j.po;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 同步对象
  * @author XieGuanNan
  * @date 2015-8-12-上午11:00:22
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SynchPO implements Comparable<SynchPO>{
 	/**
 	 * 显示名称

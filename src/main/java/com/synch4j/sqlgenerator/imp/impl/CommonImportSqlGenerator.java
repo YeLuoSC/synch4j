@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.synch4j.Synch2Context;
 import com.synch4j.callback.CallbackManager;
 import com.synch4j.callback.ImportDbValueChangeProcessor;
 import com.synch4j.callback.ImportSqlGenerateProcessor;
@@ -121,7 +122,7 @@ public class CommonImportSqlGenerator implements IImportSqlGenerator{
 //		}
 	}
 	
-	private String callbackSqlGenerateProcessor(SynchPO synchPO,String sql,String destProvince,String year) throws CallbackClassNotExistIoCException, CallbackException{
+	private String callbackSqlGenerateProcessor(SynchPO synchPO,String sql,Synch2Context context) throws CallbackClassNotExistIoCException, CallbackException{
 		List list = (List) CallbackManager.getBeansByInterfaceName("ImportSqlGenerateProcessor", false);
 		for(Object obj : list){
 			logger.info(synchPO.getPhysDBName() + "表回调前导入SQL：" + sql);

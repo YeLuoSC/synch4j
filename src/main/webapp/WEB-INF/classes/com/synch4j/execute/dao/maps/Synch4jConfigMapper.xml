@@ -10,9 +10,14 @@
 		       A.SYNCHRECOGCOL,
 		       A.TABLETYPE,
 		       A.PKCOL,
-		       A.MAXROW,
 		       A.REMARK,
-		       A.FILTERCOL
+		       A.FILTERCOL,
+		       (CASE
+		         WHEN A.PHYSDBNAME IS NULL THEN
+		          'false'
+		         ELSE
+		          'true'
+		       END) ISSYNCH
 		  FROM P#SYNCH_T_SETTING A
 		 RIGHT JOIN SYNCH_V_USERTABLE B
 		    ON A.PHYSDBNAME = B.PHYSDBNAME

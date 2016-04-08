@@ -19,7 +19,7 @@
 	 <mvc:resources mapping="/scripts/**" location="/scripts/"/>
 	
 	 <mvc:resources mapping="/css/**" location="/css/"/>
-	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="url" value="jdbc:oracle:thin://127.0.0.1/orcl" /> 
 		<property name="username" value="MYAPP"/>
 		<property name="password" value="MYAPP123" />
@@ -27,8 +27,8 @@
 		<property name="maxActive" value="20" />
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="0" />
-	</bean> -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	</bean>
+	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="url" value="jdbc:oracle:thin:@192.168.5.33:1521:orcl" /> 
 		<property name="username" value="EFMIS_1500"/>
 		<property name="password" value="EFMIS_1500" />
@@ -36,7 +36,7 @@
 		<property name="maxActive" value="20" />
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="0" />
-	</bean>
+	</bean> -->
 
 	<bean id="jdbcDao" class="com.synch4j.common.dao.impl.JdbcDao">
 		<property name="dataSource">

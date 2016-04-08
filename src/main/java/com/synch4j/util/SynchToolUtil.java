@@ -83,7 +83,6 @@ public class SynchToolUtil {
 			synchPO.setSynchRecogCol(dataMap.get("SYNCHRECOGCOL") == null?"":(String)dataMap.get("SYNCHRECOGCOL"));
 			synchPO.setTableType(dataMap.get("TABLETYPE") == null?"":(String)dataMap.get("TABLETYPE"));
 			synchPO.setRemark(dataMap.get("REMARK") == null?"":(String)dataMap.get("REMARK"));
-			synchPO.setMaxRow(dataMap.get("MAXROW") == null?0: Integer.valueOf(String.valueOf(dataMap.get("MAXROW"))));
 			synchPO.setIsSynch(dataMap.get("ISSYNCH") == null?"":(String)dataMap.get("ISSYNCH"));
 			synchPO.setIsAlwaysExport(dataMap.get("ISALWAYSEXPORT") == null?"":(String)dataMap.get("ISALWAYSEXPORT"));
 			if ((String)dataMap.get("PKCOL") != null) {

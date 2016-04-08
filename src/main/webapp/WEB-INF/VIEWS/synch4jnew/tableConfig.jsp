@@ -145,7 +145,7 @@
 						    </thead>
 						    <tbody>
 						    	<tr ng-repeat="x in data">
-						    		<td><input type="checkbox" ng-model="x.isSynch"/></td>
+						    		<td><input type="checkbox" ng-checked="isChecked(x)" ng-click="updateChecked(x)" ng-model="x.isSynch"/></td>
 						    		<td><span ng-if="!x.editable">{{x.synchOrder}}</span><input type="number" class="form-control" ng-if="x.editable" ng-model="x.synchOrder"/></td>
 						    		<td>{{x.physDBName}}</td>
 									<td>

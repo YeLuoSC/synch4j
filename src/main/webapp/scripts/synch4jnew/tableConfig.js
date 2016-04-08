@@ -13,10 +13,24 @@ app.controller('myCtrl',function($scope,$http,configService){
 	$scope.save = function(synchObj){
 		configService.save(synchObj);
 	};
+	
+	$scope.isChecked = function(synchObj){
+		return synchObj.isSynch == "true";
+	}
+	
+	$scope.updateChecked = function(synchPO){
+		if(synchPO.isSynch == "true")
+			synchPO.isSynch = "false";
+		else
+			synchPO.isSynch = "true";
+	}
 });
 
 app.service('configService',function($http){
-	this.save = function(synchObj){
-		console.log(synchObj);
-	}
+	this.save = function(synchPO){
+		synchPO.editable = false;
+		$http.post("config2/saveSynchPO.do",synchPO).success(function(response){
+			console.log(response);
+		});
+	};
 });

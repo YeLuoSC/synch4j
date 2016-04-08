@@ -6,7 +6,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,5 +36,12 @@ public class Synch4jController {
 		List<SynchPO> dataList = synch4jConfigServiceImpl.getSynchConfigList(physDBName, tableName);
 		map.put("result", dataList);
 		return map; 
+	}
+	
+	@RequestMapping(value = "/saveSynchPO")
+	@ResponseBody
+	public String saveSynchPO(@RequestBody SynchPO synchPO) throws Exception{
+
+		return null;
 	}
 }
