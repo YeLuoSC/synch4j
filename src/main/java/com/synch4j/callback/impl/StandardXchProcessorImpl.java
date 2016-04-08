@@ -40,7 +40,7 @@ public class StandardXchProcessorImpl implements StandardExportPostProcessor {
 	
 	@Override
 	public void postProcessBeforeExport(ExportMode mode, List<SynchPO> list,
-			String logId, Synch2Context context)
+			Synch2Context context)
 			throws CallbackException {
 		// TODO Auto-generated method stub
 

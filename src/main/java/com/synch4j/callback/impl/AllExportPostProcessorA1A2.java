@@ -41,7 +41,7 @@ public class AllExportPostProcessorA1A2 implements StandardExportPostProcessor,N
 	private ICallbackMapper callbackMapper;
 	
 	@Override
-	public void postProcessBeforeExport(ExportMode mode, List<SynchPO> list, String logId, Synch2Context context) throws CallbackException {
+	public void postProcessBeforeExport(ExportMode mode, List<SynchPO> list, Synch2Context context) throws CallbackException {
 		logger.info("导出前回调！AllExportPostProcessorA1A2");
 		try{
 			switch(mode){

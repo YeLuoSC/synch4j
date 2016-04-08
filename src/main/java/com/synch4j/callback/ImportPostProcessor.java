@@ -11,7 +11,7 @@ public interface ImportPostProcessor {
 	/**
 	 * 导入前回调
 	 */
-	public void postProcessBeforeImport(String logId) throws CallbackException;
+	public void postProcessBeforeImport() throws CallbackException;
 	
 	/**
 	 * 导入完成后回调

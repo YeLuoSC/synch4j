@@ -17,7 +17,7 @@ public class ImportPostProcessorImpl implements ImportPostProcessor{
 	private ICallbackMapper callbackMapper;
 	
 	@Override
-	public void postProcessBeforeImport(String logId) throws CallbackException {
+	public void postProcessBeforeImport() throws CallbackException {
 		// TODO Auto-generated method stub
 		
 	}

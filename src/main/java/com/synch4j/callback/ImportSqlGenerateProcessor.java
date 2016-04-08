@@ -1,5 +1,6 @@
 package com.synch4j.callback;
 
+import com.synch4j.Synch2Context;
 import com.synch4j.exception.CallbackException;
 import com.synch4j.po.SynchPO;
 import com.synch4j.synchenum.ImportMode;
@@ -17,11 +18,10 @@ public interface ImportSqlGenerateProcessor {
 	/**
 	 * @param synchPO
 	 * @param importSql
-	 * @param destProvince
-	 * @param year
+	 * @param context TODO
 	 * @return 修改后的SQL字符串
 	 * @throws CallbackException
 	 * 可以通过所给的参数对sql进行修改，返回修改后的SQL字符串
 	 */
-	public String changeImportSql(SynchPO synchPO,String importSql,String destProvince, String year) throws CallbackException;
+	public String changeImportSql(SynchPO synchPO,String importSql,Synch2Context context) throws CallbackException;
 }

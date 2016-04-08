@@ -62,18 +62,18 @@ public class DbDataImporter implements IDataImporter{
 	private IJdbcDao jdbcDao;
 	
 	@Override
-	public void importData(ImportMode mode, List<SynchPO> synchList, String logId,
-			Synch2Context context) throws IOException, CallbackException {
+	public void importData(ImportMode mode, List<SynchPO> synchList, Synch2Context context) throws IOException, CallbackException {
 		switch(mode){
 		case SINGLE_THREAD:
-			importDataSingleThread(mode,synchList,logId,context);
+			importDataSingleThread(mode,synchList,context);
 			break;
 		case MULTI_THREAD:
 			break;
 		}
 	}
 	
-	private void importDataSingleThread(ImportMode mode, List<SynchPO> synchList,String logId,Synch2Context context) throws IOException, CallbackException{
+	private void importDataSingleThread(ImportMode mode, List<SynchPO> synchList,Synch2Context context) throws IOException, CallbackException{
+		String logId = context.getLogId();
 		BufferedReader bufferReader = null;
 		ByteArrayInputStream dataStream = null;
 		for(SynchPO synchPO : synchList){

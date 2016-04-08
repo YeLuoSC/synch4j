@@ -20,10 +20,9 @@ public interface ExportPostProcessor {
 	 * 添加至list中一些新的同步对象，这样在后续导出时，会将业务新增的表格一起同步
 	 * @param mode TODO
 	 * @param list 同步对象，该集合中的对象，包含了即将被同步的表格信息
-	 * @param logId TODO
 	 * @param context TODO
 	 */
-	public void postProcessBeforeExport(ExportMode mode, List<SynchPO> list, String logId, Synch2Context context) throws CallbackException;
+	public void postProcessBeforeExport(ExportMode mode, List<SynchPO> list, Synch2Context context) throws CallbackException;
 	
 	/**
 	 * 导出完成后回调

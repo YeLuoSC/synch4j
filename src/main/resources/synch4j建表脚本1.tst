@@ -175,14 +175,12 @@ begin
       synchorder     NUMBER(10) default 0,
       synchcondition VARCHAR2(4000),
       pkcol          VARCHAR2(500),
-      synchrecogcol  VARCHAR2(50) default 'DBVERSION',
+      synchrecogcol  VARCHAR2(50),
       tabletype      VARCHAR2(2) default '1',
-      maxrow         NUMBER(10) default '0',
       remark         VARCHAR2(500),
       dbversion      TIMESTAMP(6) default SYSDATE,
       status         CHAR(1) default 1 not null,
       guid           VARCHAR2(32) default SYS_GUID(),
-      direction      VARCHAR2(2) default 'O',
       filtercol      VARCHAR2(200),
       isalwaysexport CHAR(1) default '1'
     )

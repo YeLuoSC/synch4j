@@ -137,7 +137,6 @@
 						        <th>导入时顺序</th>
 						        <th>物理表名</th>
 						        <th>表类型</th>
-						        <th>单次导出最大行数</th>
 						        <th>时间戳列名</th>
 						        <th>导出条件设置</th>
 						        <th>过滤列</th>
@@ -161,13 +160,12 @@
 											</select>
 										</span>
 									</td>
-									<td><span ng-if="!x.editable">{{x.maxRow}}</span><span ng-if="x.editable"><input type="number" class="form-control" ng-model="x.maxRow"/></span></td>
-						    		<td><span ng-if="!x.editable">{{x.synchRecogCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.synchRecogCol"/></span></td>
+									<td><span ng-if="!x.editable">{{x.synchRecogCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.synchRecogCol"/></span></td>
 						    		<td><span ng-if="!x.editable">{{x.condition}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.condition"/></span></td>
 						    		<td><span ng-if="!x.editable">{{x.filterCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.filterCol"/></span></td>
 						    		<td>
 						    			<span class="btn btn-primary btn-xs" title="编辑" ng-click="x.editable=true" ng-if="!x.editable"><i class="glyphicon glyphicon-pencil"></i></span>
-						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="x.editable=false" ng-if="x.editable"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="save(x)" ng-if="x.editable"><i class="glyphicon glyphicon-floppy-disk"></i></span>
 						    		</td>
 						    	</tr>
 						    </tbody>

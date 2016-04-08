@@ -110,29 +110,8 @@ public class CommonExportSqlGenerator implements IExportSqlGenerator{
 							+ SynchConstants.SYSTIMESTAMP_FORMAT + ") ";
 				}
 			}
-			querySQL = querySQL + " AND " + synchPO.getSynchRecogCol()
-					+ " < SYSTIMESTAMP ORDER BY " + synchPO.getSynchRecogCol()
-					+ " ";
-			//排序加上主键否则 时间相同时 顺序不能唯一
-			for (String pk : synchPO.getPkList()) {
-				querySQL = querySQL +", "+ pk;
-			}
-		}else{
-			if(synchPO.getPkList() != null && synchPO.getPkList().size() > 0){
-				querySQL = querySQL + " ORDER BY ";
-				for (String pk : synchPO.getPkList()) {
-					querySQL = querySQL +" "+ pk;
-				}
-			}else{
-				//没有主键的表不应该考虑，否则按照目前机制导入会失败
-			}
 		}
 		
-		
-		if(Integer.valueOf(synchPO.getMaxRow()) != null){
-			querySQL = "SELECT * FROM (" + querySQL + ") WHERE ROWNUM <= "
-					+ synchPO.getMaxRow();
-		}
 		//TODO 待测试
 
 		colsName = new StringBuffer(colsName.substring(0, colsName.length()

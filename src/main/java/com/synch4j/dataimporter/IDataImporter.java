@@ -17,5 +17,5 @@ import com.synch4j.synchenum.ImportMode;
 public interface IDataImporter {
 	
 	public void importData(ImportMode mode,List<SynchPO> synchList,
-			String logId,Synch2Context context) throws IOException,CallbackException ;
+			Synch2Context context) throws IOException,CallbackException ;
 }

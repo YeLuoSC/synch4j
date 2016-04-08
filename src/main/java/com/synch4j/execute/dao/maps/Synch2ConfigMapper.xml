@@ -12,7 +12,6 @@
 		       A.TABLETYPE,
 		       A.PKCOL,
 		       A.NETTYPE,
-		       A.MAXROW,
 		       A.REMARK,
 		       A.FILTERCOL,
 		       (CASE

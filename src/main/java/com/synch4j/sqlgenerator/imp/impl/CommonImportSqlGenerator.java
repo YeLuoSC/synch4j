@@ -126,7 +126,7 @@ public class CommonImportSqlGenerator implements IImportSqlGenerator{
 		for(Object obj : list){
 			logger.info(synchPO.getPhysDBName() + "表回调前导入SQL：" + sql);
 			ImportSqlGenerateProcessor callback = (ImportSqlGenerateProcessor)obj;
-			String changeSql = callback.changeImportSql(synchPO, sql, destProvince, year);
+			String changeSql = callback.changeImportSql(synchPO, sql, context);
 			//防止回调时候，返回了空
 			if(!StringUtils.isEmpty(changeSql)){
 				sql = changeSql;

@@ -33,7 +33,7 @@ public class SingleThreadImportStrategy extends AbsImportStrategy{
 		List callbackList = (List)CallbackManager.getBeansByInterfaceName("ImportPostProcessor", false);
 		for(Object obj : callbackList){
 			ImportPostProcessor call = (ImportPostProcessor)obj;
-			call.postProcessBeforeImport(logId);
+			call.postProcessBeforeImport();
 		}
 	}
 
@@ -79,7 +79,7 @@ public class SingleThreadImportStrategy extends AbsImportStrategy{
 				}
 			}
 			IDataImporter dataImporter = (IDataImporter)CallbackManager.getBeansByPropertiesKey(SynchConstants.IMPORT_SINGLE_DATAIMPORTER_KEY, true);
-			dataImporter.importData(mode, synchList, logId, context);
+			dataImporter.importData(mode, synchList, context);
 		}catch(Exception e){
 			//因为事务的问题，以下语句没有作用；
 			//synchLogService.updateMainLogSynStatus(logId, "3");
