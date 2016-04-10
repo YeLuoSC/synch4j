@@ -14,7 +14,7 @@
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
-<script src="<%=path %>/scripts/synch4jnew/tableConfig.js"></script>
+<script src="<%=path %>/scripts/synch4jnew/procedure.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>
 
 
@@ -75,10 +75,10 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="config2.do"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
-			<li><a href="procedure.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
-			<li><a href="export.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
-			<li><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
+			<li><a href="config2.do"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
+			<li class="active"><a href="procedure2.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
+			<li><a href="export2.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
+			<li><a href="import2.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
 			<%--<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
 			--%><li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
@@ -113,14 +113,14 @@
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li class="active">数据同步设置</li>
+				<li class="active">远程脚本执行设置</li>
 			</ol>
 		</div><!--/.row-->
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">导出表格设置</h1>
-				<p>下列设置表格中，单次导出最大行数、时间戳列名均为增量导出配置项，可不录入信息</p>
+				<h1 class="page-header">远程脚本执行设置</h1>
+				<p>设置完成后，可在对方数据库中执行该数据库脚本代码</p>
 			</div>
 		</div><!--/.row-->
 				
@@ -134,35 +134,30 @@
 						    <thead>
 						    <tr>
 						        <th><input type="checkbox"  ng-model="allchecked" ng-change="checkAll(allchecked)"/></th>
-						        <th>导入时顺序</th>
-						        <th>物理表名</th>
-						        <th>表类型</th>
-						        <th>时间戳列名</th>
-						        <th>导出条件设置</th>
-						        <th>过滤列</th>
+						        <th>名称</th>
+						        <th>作用描述</th>
+						        <th>是否启用</th>
+						        <th>执行代码</th>
 						        <th>操作</th>
 						    </tr>
 						    </thead>
 						    <tbody>
-						    	<tr ng-repeat="x in data">
+						    	<tr ng-repeat="x in data" ng-hide="x.hidden==true">
 						    		<td><input type="checkbox" ng-checked="isChecked(x)" ng-click="updateChecked(x)" ng-model="x.isSynch"/></td>
-						    		<td><span ng-if="!x.editable">{{x.synchOrder}}</span><input type="number" class="form-control" ng-if="x.editable" ng-model="x.synchOrder"/></td>
-						    		<td>{{x.physDBName}}</td>
+						    		<td><span ng-if="!x.editable">{{x.name}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.name"/></td>
+						    		<td><span ng-if="!x.editable">{{x.describe}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.describe"/></td>
 									<td>
-										<span ng-if="!x.editable"><span ng-if="x.tableType==1">普通表</span><span ng-if="x.tableType==2">附件表</span></span>
+										<span ng-if="!x.editable"><span ng-if="x.available==0">停用</span><span ng-if="x.available==1">启用</span></span>
 										<span ng-if="x.editable">
 											<%--<select class="form-control" ng-model="x.tableType">
 												<option ng-repeat="tableType in tableTypes" value="{{tableType.value}}">{{tableType.name}}</option>
 											</select>
 										--%>
-											<select class="form-control" ng-model="x.tableType" ng-options="tableType.value as tableType.name for tableType in tableTypes">
+											<select class="form-control" ng-model="x.available" ng-options="available.value as available.name for available in availableList">
 												
 											</select>
 										</span>
-									</td>
-									<td><span ng-if="!x.editable">{{x.synchRecogCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.synchRecogCol"/></span></td>
-						    		<td><span ng-if="!x.editable">{{x.condition}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.condition"/></span></td>
-						    		<td><span ng-if="!x.editable">{{x.filterCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.filterCol"/></span></td>
+										<td><span ng-if="!x.editable">{{x.programCode}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.programCode"/></td>
 						    		<td>
 						    			<span class="btn btn-primary btn-xs" title="编辑" ng-click="x.editable=true" ng-if="!x.editable"><i class="glyphicon glyphicon-pencil"></i></span>
 						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="save(x)"><i class="glyphicon glyphicon-floppy-disk"></i></span>

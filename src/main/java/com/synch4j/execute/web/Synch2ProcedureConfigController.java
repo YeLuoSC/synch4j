@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.synch4j.execute.service.ISynch2ProcedureService;
 import com.synch4j.po.ProcedureDefinitionPO;
+import com.synch4j.po.SynchPO;
 
 @Controller
 @RequestMapping(value = "/procedureConfig")

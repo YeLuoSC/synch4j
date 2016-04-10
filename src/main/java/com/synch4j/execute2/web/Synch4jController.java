@@ -1,4 +1,4 @@
-package com.synch4j.execute.web;
+package com.synch4j.execute2.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.synch4j.execute.service.ISynch4jConfigService;
+import com.synch4j.execute2.service.ISynch4jConfigService;
 import com.synch4j.po.SynchPO;
 
 @Controller
@@ -41,7 +41,14 @@ public class Synch4jController {
 	@RequestMapping(value = "/saveSynchPO")
 	@ResponseBody
 	public String saveSynchPO(@RequestBody SynchPO synchPO) throws Exception{
-
-		return null;
+		String result = synch4jConfigServiceImpl.saveSynchPO(synchPO);
+		return result;
+	}
+	
+	@RequestMapping(value = "/delSynchPO")
+	@ResponseBody
+	public String delSynchPO(@RequestBody String tableName) throws Exception{
+		synch4jConfigServiceImpl.delSynchPO(tableName);
+		return "success";
 	}
 }

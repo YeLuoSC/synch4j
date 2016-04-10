@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute2.dao.Synch4jConfigMapper">
+	<select id="getSynchSettingList" resultType="map">
+		SELECT B.PHYSDBNAME,
+		       B.TABLENAME,
+		       B.BIGDATA,
+		       A.SYNCHORDER,
+		       A.SYNCHCONDITION,
+		       A.SYNCHRECOGCOL,
+		       nvl(A.TABLETYPE,'1')TABLETYPE,
+		       A.PKCOL,
+		       A.REMARK,
+		       A.FILTERCOL,
+		       (CASE
+		         WHEN A.PHYSDBNAME IS NULL THEN
+		          'false'
+		         ELSE
+		          'true'
+		       END) ISSYNCH
+		  FROM P#SYNCH_T_SETTING A
+		 RIGHT JOIN SYNCH_V_USERTABLE B
+		    ON A.PHYSDBNAME = B.PHYSDBNAME
+		     WHERE 1 = 1
+		     <if test="physDBName != null">
+				AND B.PHYSDBNAME LIKE '%${physDBName}%'     
+		     </if>
+        	 <if test="tableName != null">
+        	 	 AND B.TABLENAME LIKE '%${tableName}%'
+        	 </if>
+		    ORDER BY A.SYNCHORDER, B.PHYSDBNAME,A.REMARK
+	</select>
+	
+	<select id="getCountByTableName" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM P#SYNCH_T_SETTING WHERE PHYSDBNAME=#{tableName}
+	</select>
+	
+	<insert id="insertSynchPO" parameterType="hashmap">
+		INSERT INTO P#SYNCH_T_SETTING
+		  (PHYSDBNAME, SYNCHORDER, SYNCHCONDITION, SYNCHRECOGCOL, REMARK, TABLETYPE,FILTERCOL)
+		VALUES
+		  (#{synchPO.physDBName}, #{synchPO.synchOrder}, #{synchPO.synchCondition}, #{synchPO.synchRecogCol}, #{synchPO.remark}, #{synchPO.tableType}, #{synchPO.filterCol})
+	</insert>
+	
+	<update id="updateSynchPO" parameterType="hashmap">
+		UPDATE P#SYNCH_T_SETTING
+			   SET SYNCHORDER = #{synchPO.synchOrder},
+			       SYNCHCONDITION = #{synchPO.synchCondition},
+			       SYNCHRECOGCOL = #{synchPO.synchRecogCol},
+			       TABLETYPE = #{synchPO.tableType},
+			       FILTERCOL = #{synchPO.filterCol},
+			       REMARK = #{synchPO.remark}
+			 WHERE PHYSDBNAME = #{synchPO.physDBName}
+	</update>
+	
+	<delete id="delSynchPO" parameterType="string">
+		DELETE FROM P#SYNCH_T_SETTING
+ 			WHERE PHYSDBNAME = #{physDBName}
+	</delete>
+	
+</mapper>
