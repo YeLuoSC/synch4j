@@ -40,15 +40,19 @@ public class Synch4jController {
 	
 	@RequestMapping(value = "/saveSynchPO")
 	@ResponseBody
-	public String saveSynchPO(@RequestBody SynchPO synchPO) throws Exception{
+	public Object saveSynchPO(@RequestBody SynchPO synchPO) throws Exception{
 		String result = synch4jConfigServiceImpl.saveSynchPO(synchPO);
-		return result;
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("result", result);
+		return map;
 	}
 	
 	@RequestMapping(value = "/delSynchPO")
 	@ResponseBody
-	public String delSynchPO(@RequestBody String tableName) throws Exception{
+	public Object delSynchPO(@RequestBody String tableName) throws Exception{
 		synch4jConfigServiceImpl.delSynchPO(tableName);
-		return "success";
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("result", "删除成功");
+		return map;
 	}
 }

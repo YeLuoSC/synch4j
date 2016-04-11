@@ -56,6 +56,8 @@ public class Synch4jProcedureController {
 	@RequestMapping("saveRemoteProcedure")
 	public Object saveRemoteProcedure(@RequestBody ProcedureDefinitionPO proPO) throws Exception {
 		synch4jProcedureServiceImpl.saveProcedure(proPO);
-		return "success";
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("success", "创建成功");
+		return map;
 	}
 }

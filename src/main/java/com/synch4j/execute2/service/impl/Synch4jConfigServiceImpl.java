@@ -44,10 +44,10 @@ public class Synch4jConfigServiceImpl implements ISynch4jConfigService{
 				//新增或更新
 				if(synch4jMapper.getCountByTableName(synchPO.getPhysDBName()) > 0){
 					synch4jMapper.updateSynchPO(synchPO);
-					result = "update";
+					result = "更新成功";
 				}else{
 					synch4jMapper.insertSynchPO(synchPO);
-					result = "insert";
+					result = "创建成功";
 				}
 			}
 		}

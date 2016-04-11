@@ -9,11 +9,12 @@
 
 <link href="<%=path %>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=path %>/css/datepicker3.css" rel="stylesheet">
-<link href="<%=path %>/css/bootstrap-table.css" rel="stylesheet">
-<link href="<%=path %>/css/styles.css" rel="stylesheet">
+<%--<link href="<%=path %>/css/bootstrap-table.css" rel="stylesheet">
+--%><link href="<%=path %>/css/styles.css" rel="stylesheet">
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>  
 <script src="<%=path %>/scripts/synch4jnew/procedure.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>
 
@@ -42,7 +43,7 @@
 
 </head>
 
-<body ng-app="myapp">
+<body ng-app="myapp"  ng-controller="myCtrl">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -125,10 +126,10 @@
 		</div><!--/.row-->
 				
 		
-		<div class="row"  ng-controller="myCtrl">
+		<div class="row"  ng-controller="tableCtrl" >
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Advanced Table</div>
+					<div class="panel-heading"><button type="button" class="btn btn-primary" ng-click="addProcedure()"  data-toggle="modal" data-target="#addWin">新增</button></div>
 					<div class="panel-body">
 						<table class="table table-striped table-hover">
 						    <thead>
@@ -153,9 +154,7 @@
 												<option ng-repeat="tableType in tableTypes" value="{{tableType.value}}">{{tableType.name}}</option>
 											</select>
 										--%>
-											<select class="form-control" ng-model="x.available" ng-options="available.value as available.name for available in availableList">
-												
-											</select>
+											<select class="form-control" ng-model="x.available" ng-options="available.value as available.name for available in availableList"></select>
 										</span>
 										<td><span ng-if="!x.editable">{{x.programCode}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.programCode"/></td>
 						    		<td>
@@ -171,7 +170,41 @@
 			</div>
 		</div><!--/.row-->	
 	</div><!--/.main-->
-
+	<!-- 模态窗口 -->
+	<div class="modal fade"  id="addWin" ng-controller="addCtrl">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">新增脚本代码</h4>
+	      </div>
+	      <div class="modal-body">
+	        	<form>
+							<div class="form-group">
+								<label>名称：</label>
+								<input type="text" class="form-control" placeholder="请输入该存储过程的名称" ng-model="proPO.name"/>
+							</div>
+							<div class="form-group">
+								<label>作用描述：</label>
+								<input type="text" class="form-control" placeholder="请输入该存储过程的作用描述" ng-model="proPO.describe"/>
+							</div>
+							<div class="form-group">
+								<label>是否启用：</label>
+								<select class="form-control" ng-model="proPO.available" ng-options="available.value as available.name for available in availableList"></select>
+							</div>
+							<div class="form-group">
+								<label>执行代码：</label>
+								<textarea class="form-control" placeholder="请录入该存储过程的代码" rows="10" ng-model="proPO.programCode"/></textarea>
+							</div>
+				</form>
+	      </div>
+	      <div class="modal-footer">
+	    	  	<button type="button" class="btn btn-primary" ng-click="addProcedure(proPO)">保存</button>
+	       		<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 
 </html>

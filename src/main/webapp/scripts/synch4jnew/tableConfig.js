@@ -36,6 +36,8 @@ app.service('configService',function($http){
 		synchPO.editable = false;
 		$http.post("config2/saveSynchPO.do",synchPO).success(function(response){
 			alert("保存成功");
+		}).error(function(){
+			alert("保存失败！");
 		});
 	};
 	this.del = function(synchPO){
@@ -43,6 +45,8 @@ app.service('configService',function($http){
 		synchPO.isSynch = "false";
 		$http.post("config2/delSynchPO.do",synchPO.physDBName).success(function(response){
 			alert("删除成功");
+		}).error(function(){
+			alert("删除失败！");
 		});
 	}
 });
