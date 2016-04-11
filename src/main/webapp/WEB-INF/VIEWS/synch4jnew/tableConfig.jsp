@@ -9,7 +9,7 @@
 
 <link href="<%=path %>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=path %>/css/datepicker3.css" rel="stylesheet">
-<link href="<%=path %>/css/bootstrap-table.css" rel="stylesheet">
+<%--<link href="<%=path %>/css/bootstrap-table.css" rel="stylesheet">--%>
 <link href="<%=path %>/css/styles.css" rel="stylesheet">
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>

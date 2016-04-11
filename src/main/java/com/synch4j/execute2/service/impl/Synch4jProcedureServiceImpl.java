@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.synch4j.execute2.dao.Synch4jProcedureMapper;
 import com.synch4j.execute2.service.ISynch4jProcedureService;
 import com.synch4j.po.ProcedureDefinitionPO;
+import com.synch4j.util.SynchToolUtil;
 @Service
 @Transactional(readOnly=true)
 public class Synch4jProcedureServiceImpl implements ISynch4jProcedureService{
@@ -37,6 +38,7 @@ public class Synch4jProcedureServiceImpl implements ISynch4jProcedureService{
 		if(!StringUtils.isEmpty(proPO.getGuid())){
 			synch4jProcedureMapper.updateProcedure(proPO);
 		}else{
+			proPO.setGuid(SynchToolUtil.GUID());
 			synch4jProcedureMapper.saveProcedure(proPO);
 		}
 	}

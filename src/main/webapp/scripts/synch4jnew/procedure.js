@@ -6,7 +6,7 @@ app.controller('tableCtrl',function($scope,$http,procedureService){
 	
 	$scope.checkAll = function(isChecked){
 		angular.forEach($scope.data,function(item){
-			item.isSynch = isChecked;
+			item.isSelected = isChecked;
 		});
 	};
 	$scope.availableList=[{name:"启用",value:"1"},{name:"停用",value:"0"}];
@@ -15,22 +15,24 @@ app.controller('tableCtrl',function($scope,$http,procedureService){
 		procedureService.save(po);
 	};
 	
-	$scope.del = function(po){
-		procedureService.del(po);
-	}
+	$scope.del = function(po,index){
+		procedureService.del(po,index);
+	};
 	
-	$scope.isChecked = function(synchObj){
-		return synchObj.isSynch == "true";
-	}
+	$scope.isChecked = function(po){
+		return po.isSelected == true;
+	};
 	
 	$scope.updateChecked = function(po){
-		
-		if(po.isSynch == "true")
-			po.isSynch = "false";
+		if(po.isSelected == true)
+			po.isSelected = false;
 		else
-			po.isSynch = "true";
-	}
+			po.isSelected = true;
+	};
 	
+	$scope.delBatchProcedure = function(){
+		procedureService.delBatchProcedure($scope.data);
+	};
 });
 
 app.controller('addCtrl',function($scope,$http,procedureService){
@@ -39,7 +41,7 @@ app.controller('addCtrl',function($scope,$http,procedureService){
 	
 	$scope.addProcedure = function(proPO){
 		procedureService.addProcedure(proPO,$scope);
-	}
+	};
 });
 
 
@@ -51,7 +53,7 @@ app.service('procedureService',function($http){
 			scope.data = response.result;
 			proData = scope.data;
 		});
-	}
+	};
 	
 	this.save = function(po){
 		po.editable = false;
@@ -59,27 +61,58 @@ app.service('procedureService',function($http){
 			alert("保存成功");
 		});
 	};
-	this.del = function(po){
+	this.del = function(po,index){
 		po.editable = false;
 		var arr = new Array();
 		arr.push(po.guid);
 		$http.post("procedure/delRemoteProcedure.do",arr).success(function(response){
 			po.hidden = true;
+			//proData.splice(index,1);
 			alert("删除成功");
 		});
 	};
 	this.addProcedure = function(proPO,scope){
-		$http({
-		    method: 'POST',
-		    url: 'procedure/saveRemoteProcedure.do',
-		    headers: {'Content-Type': 'application/json'},
-		    data: proPO
-		}).success(function(){
+		$http.post('procedure/saveRemoteProcedure.do',proPO).success(function(response){
 			//me.getData(scope);
-			scope.data.push(proPO);
+			proPO.guid = response.success;
+			var cloneObj = {};
+			$.extend(cloneObj,proPO);
+			scope.data.push(cloneObj);
 			alert("创建成功");
+			me.clearProPO(proPO);
+			$("#addWin").modal('hide');
 		}).error(function(){
 			alert("error");
 		});
+	};
+	
+	this.delBatchProcedure = function(arr){
+		var idArr = new Array();
+		angular.forEach(arr, function(po,index,array){
+			 //data等价于array[index]
+			if(po.isSelected == true){
+				idArr.push(po.guid);
+			}
+		});
+		if(idArr.length > 0){
+			$http.post("procedure/delRemoteProcedure.do",idArr).success(function(response){
+				angular.forEach(arr, function(po,index,array){
+					 //data等价于array[index]
+					if(po.isSelected == true){
+						po.hidden = true;
+					}
+				});
+				alert("删除成功");
+			});
+		}
+		
+	};
+	
+	this.clearProPO = function(proPO){
+		proPO.guid = "";
+		proPO.name = "";
+		proPO.available = 0;
+		proPO.programCode = "";
+		proPO.describe = "";
 	};
 });

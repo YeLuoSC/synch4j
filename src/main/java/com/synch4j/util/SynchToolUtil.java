@@ -242,22 +242,4 @@ public class SynchToolUtil {
 		}
 	}
 	
-	public static String getSystemAppID() {
-		String appID = "";
-		Properties prop = new Properties();
-		try {
-			prop.load(SynchToolUtil.class
-					.getResourceAsStream("/application.properties"));
-			if (prop.containsKey("system.appid")) {
-				appID = prop.getProperty("system.appid");
-				return appID;
-			}
-			return null;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }

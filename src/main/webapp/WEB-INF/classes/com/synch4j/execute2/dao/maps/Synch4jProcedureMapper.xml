@@ -27,8 +27,8 @@
 	</update>
 	
 	<insert id="saveProcedure" parameterType="com.synch4j.po.ProcedureDefinitionPO">
-		insert into P#SYNCH_T_REMOTEPROCEDURE(NAME,DESCRIBE,AVAILABLE,PROGRAMCODE) VALUES
-			(#{name,jdbcType=VARCHAR},#{describe,jdbcType=VARCHAR},#{available,jdbcType=CHAR},#{programCode,jdbcType=CLOB})
+		insert into P#SYNCH_T_REMOTEPROCEDURE(GUID,NAME,DESCRIBE,AVAILABLE,PROGRAMCODE) VALUES
+			(#{guid,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{describe,jdbcType=VARCHAR},#{available,jdbcType=CHAR},#{programCode,jdbcType=CLOB})
 	</insert>
 	
 	<update id="updateProcedure"  parameterType="com.synch4j.po.ProcedureDefinitionPO">

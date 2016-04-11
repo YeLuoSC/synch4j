@@ -27,8 +27,9 @@ public class Synch2TaskPlan {
 	private ISynchBegin synchBeginImpl;
 	
 	public void execute(){
-		List<Synch2PlanPO> plans = synch2PlanServiceImpl.getActivePlanPO
-				(SynchToolUtil.getSystemAppID().toLowerCase());
+//		List<Synch2PlanPO> plans = synch2PlanServiceImpl.getActivePlanPO
+//				(SynchToolUtil.getSystemAppID().toLowerCase());
+		List<Synch2PlanPO> plans = null;
 		if(plans==null || plans.size()==0){
 			return;
 		}
