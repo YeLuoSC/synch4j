@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.synch4j.execute2.dao.Synch4jConfigMapper">
-	<select id="getSynchSettingList" resultType="map">
+	<select id="getSynchSettingList" resultType="com.synch4j.po.SynchPO">
 		SELECT B.PHYSDBNAME,
 		       B.TABLENAME,
 		       B.BIGDATA,

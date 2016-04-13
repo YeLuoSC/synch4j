@@ -1,8 +1,21 @@
-var app = angular.module('myapp',[]);
+var app = angular.module('myapp',['tm.pagination']);
 app.controller('myCtrl',function($scope,$http,configService){
-	$http.get("config2/getSynchSettingList.do").success(function(response){
-		$scope.data = response.result;
-	});
+	//配置分页基本参数
+	$scope.paginationConf = {
+		page:{
+			pageNum: 1,
+			pageSize: 20
+		},
+		callback:{
+			onChange:function(){
+				$http.post("config2/getSynchSettingList.do",$scope.paginationConf.page).success(function(response){
+					$scope.paginationConf.page.total = response.total;
+					$scope.data = response.list;
+				});
+	        }
+		}
+    };
+	
 	$scope.checkAll = function(isChecked){
 		angular.forEach($scope.data,function(item){
 			item.isSynch = isChecked;

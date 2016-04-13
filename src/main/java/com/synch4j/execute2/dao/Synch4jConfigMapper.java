@@ -10,7 +10,7 @@ import com.synch4j.po.SynchPO;
 
 public interface Synch4jConfigMapper extends SuperMapper{
 
-	public List<Map<String, Object>> getSynchSettingList(@Param("physDBName")String physDBName, @Param("tableName")String tableName);
+	public List<SynchPO> getSynchSettingList(@Param("physDBName")String physDBName, @Param("tableName")String tableName);
 	
 	public int getCountByTableName(@Param("tableName")String tableName);
 	

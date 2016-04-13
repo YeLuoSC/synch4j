@@ -1,6 +1,5 @@
 package com.synch4j.execute2.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +8,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.JavaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.synch4j.execute2.service.ISynch4jProcedureService;
+import com.synch4j.po.Page;
 import com.synch4j.po.ProcedureDefinitionPO;
 
 @Controller
@@ -36,11 +35,9 @@ public class Synch4jProcedureController {
 	
 	@ResponseBody
 	@RequestMapping("getRemoteProcedure")
-	public Object getRemoteProcedure(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Map<String,List> map = new HashMap<String, List>(); 
-		map.put("result", synch4jProcedureServiceImpl.getRemoteProcedure());
-		return map;
+	public Object getRemoteProcedure(@RequestBody PageInfo pageInfo) throws Exception {
+		pageInfo = synch4jProcedureServiceImpl.getRemoteProcedure(pageInfo);
+		return pageInfo;
 	}
 	
 	@ResponseBody

@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.synch4j.execute2.dao.Synch4jProcedureMapper;
 import com.synch4j.execute2.service.ISynch4jProcedureService;
 import com.synch4j.po.ProcedureDefinitionPO;
@@ -21,8 +23,10 @@ public class Synch4jProcedureServiceImpl implements ISynch4jProcedureService{
 	
 	@Override
 	@Transactional(readOnly=false, rollbackFor=Exception.class)
-	public List<ProcedureDefinitionPO> getRemoteProcedure() throws Exception{
-		return synch4jProcedureMapper.getRemoteProcedure();
+	public PageInfo getRemoteProcedure(PageInfo pageInfo) throws Exception{
+		PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+		PageInfo page = new PageInfo(synch4jProcedureMapper.getRemoteProcedure());
+		return page;
 	}
 
 	@Override

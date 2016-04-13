@@ -1,9 +1,21 @@
-var app = angular.module('myapp',[]);
+var app = angular.module('myapp',['tm.pagination']);
 app.controller('myCtrl',function($rootScope,$http,procedureService){
-	procedureService.getData($rootScope);
-});
-app.controller('tableCtrl',function($scope,$http,procedureService){
 	
+	
+	//配置分页基本参数
+	$rootScope.paginationConf = {
+		page:{
+			pageNum: 1,
+			pageSize: 20
+		},
+		callback:{
+			onChange:function(){
+	        	procedureService.getData($rootScope);
+	        }
+		}
+    };
+});
+app.controller('tableCtrl',function($scope,$http,procedureService){	
 	$scope.checkAll = function(isChecked){
 		angular.forEach($scope.data,function(item){
 			item.isSelected = isChecked;
@@ -49,8 +61,9 @@ app.service('procedureService',function($http){
 	var proData = {};
 	var me = this;
 	this.getData = function(scope){
-		$http.get("procedure/getRemoteProcedure.do").success(function(response){
-			scope.data = response.result;
+		$http.post("procedure/getRemoteProcedure.do",scope.paginationConf.page).success(function(response){
+			scope.paginationConf.page.total = response.total;
+			scope.data = response.list;
 			proData = scope.data;
 		});
 	};

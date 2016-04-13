@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.synch4j.execute2.dao.Synch4jConfigMapper;
 import com.synch4j.execute2.service.ISynch4jConfigService;
 import com.synch4j.po.SynchMainLogPO;
@@ -22,17 +24,13 @@ public class Synch4jConfigServiceImpl implements ISynch4jConfigService{
 	@Resource
 	private Synch4jConfigMapper synch4jMapper;
 	
-	public List<SynchPO> getSynchConfigList(String physDBName, String tableName){
-		if (physDBName == null || physDBName.length() == 0) {
-			physDBName = null;
-		} else {
-			physDBName = physDBName.toUpperCase();
-		}
-		if (tableName == null || tableName.length() == 0) {
-			tableName = null;
-		}
-		List<Map<String, Object>> dataList = synch4jMapper.getSynchSettingList(physDBName, tableName);
-		return SynchToolUtil.convertSynchPOList(dataList);
+	public PageInfo getSynchConfigList(PageInfo page){
+		String physDBName = null;
+		String tableName = null;
+		PageHelper.startPage(page.getPageNum(),page.getPageSize());
+		//List<Map<String, Object>> dataList = synch4jMapper.getSynchSettingList(physDBName, tableName);
+		PageInfo result = new PageInfo(synch4jMapper.getSynchSettingList(physDBName, tableName));
+		return result;
 	}
 
 	@Override

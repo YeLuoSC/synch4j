@@ -94,12 +94,12 @@
 		<artifactId>servlet-api</artifactId>
 		<version>3.0-alpha-1</version>
 	</dependency>
-	<!-- <dependency>
+	<dependency>
 	    <groupId>com.github.pagehelper</groupId>
 	    <artifactId>pagehelper</artifactId>
 	    <version>4.1.0</version>
 	</dependency>
-	<dependency>
+	<!-- <dependency>
 		<groupId>com.github.jsqlparser</groupId>
 		<artifactId>jsqlparser</artifactId>
 		<version>0.9.4</version>

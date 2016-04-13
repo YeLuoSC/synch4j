@@ -11,11 +11,13 @@
 <link href="<%=path %>/css/datepicker3.css" rel="stylesheet">
 <%--<link href="<%=path %>/css/bootstrap-table.css" rel="stylesheet">--%>
 <link href="<%=path %>/css/styles.css" rel="stylesheet">
+<link href="<%=path %>/css/pagination.css" rel="stylesheet">
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>  
 <script src="<%=path %>/scripts/synch4jnew/procedure.js"></script>
+<script src="<%=path %>/scripts/js/tm.pagination.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>--%>
 <script>
 	!function ($) {
@@ -108,7 +110,7 @@
 		<div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a></div>
 	</div><!--/.sidebar-->
 		
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"   ng-controller="tableCtrl" >			
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -124,7 +126,7 @@
 		</div><!--/.row-->
 				
 		
-		<div class="row"  ng-controller="tableCtrl" >
+		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -169,7 +171,11 @@
 					</div>
 				</div>
 			</div>
-		</div><!--/.row-->	
+		</div><!--/.row-->
+
+		<!-- Pagination -->
+		<tm-pagination conf="paginationConf"></tm-pagination>
+
 	</div><!--/.main-->
 	<!-- 模态窗口 -->
 	<div class="modal fade"  id="addWin" ng-controller="addCtrl">
