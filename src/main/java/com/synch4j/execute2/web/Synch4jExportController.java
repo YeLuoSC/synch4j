@@ -17,6 +17,12 @@ import com.synch4j.execute2.service.ISynch4jExportService;
 import com.synch4j.fascade.ISynchBegin;
 import com.synch4j.po.SynchExpLogPO;
 
+/**
+ * <p>Title: Synch4jExportController</p>
+ * <p>Description: 特意加了prototype，防止多线程问题；同时导出时上下文的成员变量会有线程问题</p>
+ * @author xie
+ * @date 2016-4-14 下午11:49:18
+ */
 @Controller
 @RequestMapping(value = "/export")
 @Scope("prototype")

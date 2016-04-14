@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.synch4j.execute2.dao.Synch4jImportMapper">
+
+	<select id="getImportMainLog"  resultType="com.synch4j.po.SynchMainLogPO">
+		select * from P#SYNCH_T_MAINLOG where direction='I' order by dbversion desc
+	</select>	
+	
+	<select id="getImportDetail"  resultType="com.synch4j.po.SynchImpLogPO">
+		select * from P#SYNCH_T_IMPORTLOG where logId=#{logId} order by dbversion desc
+	</select>	
+	
+</mapper>

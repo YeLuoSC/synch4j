@@ -28,17 +28,17 @@ public class SynchImpLogPO extends SynchLogPO{
 	/**
 	 * 插入数据条数
 	 */
-	private Integer insertDatas;
+	private int insertDatas;
 	
 	/**
 	 * 更新数据条数
 	 */
-	private Integer updateDatas;
+	private int updateDatas;
 	
 	/**
 	 * 失败数据条数
 	 */
-	private Integer failDatas;
+	private int failDatas;
 	
 	/**
 	 * 备注
