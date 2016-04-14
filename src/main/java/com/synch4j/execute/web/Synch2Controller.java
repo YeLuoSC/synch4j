@@ -140,7 +140,7 @@ public class Synch2Controller {
 			throws Exception {
 		boolean successFlag = true;
 		Map<String,String> resultMap = new HashMap<String,String>();
-		synchBeginImpl.CommonExport();
+		synchBeginImpl.CommonExport(null);
 		if(successFlag){
 			resultMap.put("success", "下发成功");
 		}

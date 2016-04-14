@@ -71,8 +71,8 @@ public class TestController {
 		IBaseExportStrategy exportStrategy = (IBaseExportStrategy)SpringContextHolder.getContext().getBean("oaExportStrategyBgt");
 		context.setExportStrategy(exportStrategy);
 		//该任务类型相关联的表：
-		context.export();
-		context.export();
+//		context.export();
+//		context.export();
 		String fileGuid=synch2PlanMapper.getFileGuidByDocId("F7D80583Z81ABZ4F1DZ8146Z405524D7");
 		System.out.println(fileGuid);
 //		synch2PlanMapper.delFileGuidDocId("F7D80583Z81ABZ4F1DZ8146Z405524D7", fileGuid);

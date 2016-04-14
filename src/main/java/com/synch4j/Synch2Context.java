@@ -2,8 +2,10 @@ package com.synch4j;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +17,6 @@ import com.synch4j.exception.NotSupportAppIdException;
 import com.synch4j.exp.IBaseExportStrategy;
 import com.synch4j.imp.IBaseImportStrategy;
 import com.synch4j.util.SynchToolUtil;
-import org.apache.log4j.Logger;
 
 /**
  * 同步上下文，
@@ -62,6 +63,11 @@ public class Synch2Context {
 	 */
 	private InputStream is;
 	
+	/**
+	 * 导出时若需要返回一个流，将外部传来的流设置到这里,如果不设置该属性，将压缩包导出至配置文件设置的路径中
+	 */
+	private OutputStream out;
+	
 	
 	/**
 	 * 导出时，调用该方法，需要确定导出调用哪个算法，可以通过导出策略工厂获取
@@ -72,7 +78,10 @@ public class Synch2Context {
 	 * @throws Exception 
 	 */
 	@Transactional(readOnly=false,timeout=3600, rollbackFor=Exception.class)
-	public void export() throws ErrorConfigureException, CallbackException, NotSupportAppIdException, DataPickerException, IOException{
+	public void export(OutputStream out) throws ErrorConfigureException, CallbackException, NotSupportAppIdException, DataPickerException, IOException{
+		if(out != null){
+			this.out = out;
+		}
 		this.logId = SynchToolUtil.GUID();
 		if(exportStrategy != null){
 			exportStrategy.export(this);
@@ -153,6 +162,14 @@ public class Synch2Context {
 
 	public void setIs(InputStream is) {
 		this.is = is;
+	}
+
+	public OutputStream getOut() {
+		return out;
+	}
+
+	public void setOut(OutputStream out) {
+		this.out = out;
 	}
 	
 	

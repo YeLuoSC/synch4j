@@ -27,7 +27,7 @@ public class SynchToolUtil {
 	public static String getValueFromProperties(String key){
 		Properties prop = new Properties();
 		try {
-			InputStream in = SynchToolUtil.class.getResourceAsStream("/com/synch4j/synch4j.properties");
+			InputStream in = SynchToolUtil.class.getResourceAsStream("/synch4j.properties");
 			prop.load(in);
 			return prop.getProperty(key);
 		} catch (FileNotFoundException e) {

@@ -42,6 +42,10 @@ app.controller('myCtrl',function($scope,$http,configService){
 		else
 			synchPO.isSynch = "true";
 	}
+	
+	$scope.delBatch = function(){
+		configService.delBatch($scope);
+	}
 });
 
 app.service('configService',function($http){
@@ -57,6 +61,21 @@ app.service('configService',function($http){
 		synchPO.editable = false;
 		synchPO.isSynch = "false";
 		$http.post("config2/delSynchPO.do",synchPO.physDBName).success(function(response){
+			alert("删除成功");
+		}).error(function(){
+			alert("删除失败！");
+		});
+	}
+	this.delBatch = function(scope){
+		var arr = new Array();
+		angular.forEach(scope.data,function(item){
+			if(item.isSynch == "false"){
+				arr.push(item.physDBName);
+				item.editable = false;
+			}
+		});
+		
+		$http.post("config2/delBatch.do",arr).success(function(response){
 			alert("删除成功");
 		}).error(function(){
 			alert("删除失败！");

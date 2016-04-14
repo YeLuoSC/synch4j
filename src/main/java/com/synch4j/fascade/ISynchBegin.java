@@ -2,6 +2,7 @@ package com.synch4j.fascade;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 import com.synch4j.exception.CallbackException;
@@ -46,16 +47,14 @@ public interface ISynchBegin {
 	 Exception;
 	
 	/**
-	 * SPF下发导出
-	 * @param sourceProvince
-	 * @param destProvince
-	 * @param year
+	 * 标准模式导出,参数可以传值null，当为null时，压缩包会放在synch4j配置文件中设置的路径下
+	 * 如果传流，将压缩流输出到该流中，比如你如果需要前台下载该压缩包，将servletoutputstream传进来
 	 * @throws ErrorConfigureException
 	 * @throws CallbackException
 	 * @throws NotSupportAppIdException
 	 * @throws DataPickerException
 	 * @throws IOException
 	 */
-	public void CommonExport() throws ErrorConfigureException, CallbackException, NotSupportAppIdException,
+	public void CommonExport(OutputStream out) throws ErrorConfigureException, CallbackException, NotSupportAppIdException,
 			DataPickerException, IOException;
 }

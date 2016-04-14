@@ -143,8 +143,12 @@ public abstract class AbsExportZipStrategy implements IBaseExportStrategy{
 		//拼出导出包的绝对路径
 		zipPath += File.separator + exportFileName;
 		try {
-			fos = new FileOutputStream(zipPath);
-			zos = new CZipOutputStream(fos, "GBK");
+			if(context.getOut() != null){
+				zos = new CZipOutputStream(context.getOut(), "GBK");
+			}else{
+				fos = new FileOutputStream(zipPath);
+				zos = new CZipOutputStream(fos, "GBK");
+			}
 			
 			synchList =  SynchResolverManager.getExportSynchList(mode, context);;
 			
@@ -286,14 +290,20 @@ public abstract class AbsExportZipStrategy implements IBaseExportStrategy{
 	
 	/**
 	 * 导出文件名字的方法及路径，如果有特殊需求，请在子类中重写该方法
+	 * 另外，如果传入了输出流，则统一按照export.zip名进行导出
 	 * @param sourceProvince
 	 * @param date
 	 */
 	public void setNewFileName() {
 		startTime = System.currentTimeMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-		String date = sdf.format(new Date());
-		exportFileName =  "[" + date + "].zip";
+		if(context.getOut() != null){
+			exportFileName = "export.zip";
+		}else{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+			String date = sdf.format(new Date());
+			exportFileName =  "[" + date + "].zip";
+		}
+		
 	}
 	
 	/**
@@ -311,7 +321,10 @@ public abstract class AbsExportZipStrategy implements IBaseExportStrategy{
 		try{
 			zos.flush();
 			zos.close();
-			fos.close();
+			if(fos != null){
+				fos.close();
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new IOException();

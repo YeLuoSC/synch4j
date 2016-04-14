@@ -15,12 +15,11 @@
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
-<script src="<%=path %>/scripts/synch4jnew/tableConfig.js"></script>
+<script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>  
+<script src="<%=path %>/scripts/synch4jnew/export.js"></script>
 <script src="<%=path %>/scripts/js/tm.pagination.js"></script>
-<%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>
-
-
---%><script>
+<%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>--%>
+<script>
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
 			$(this).find('em:first').toggleClass("glyphicon-minus");	  
@@ -44,7 +43,7 @@
 
 </head>
 
-<body ng-app="myapp">
+<body ng-app="myapp"  ng-controller="myCtrl">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -77,12 +76,12 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
-			<li><a href="procedure.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
-			<li><a href="export.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
+			<li><a href="config2.do"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
+			<li ><a href="procedure.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
+			<li class="active"><a href="#"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
 			<li><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
-			<%--<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>
-			--%><li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
+			<%--<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>--%>
+			<li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
 				<a href="#">
 					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
@@ -111,64 +110,51 @@
 		<div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a></div>
 	</div><!--/.sidebar-->
 		
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main"  ng-controller="myCtrl">			
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >			
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li class="active">数据同步设置</li>
+				<li class="active">数据导出</li>
 			</ol>
 		</div><!--/.row-->
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">导出表格设置</h1>
-				<p>下列设置表格中，时间戳列名均为增量导出配置项，可不录入信息,勾选即为需要同步的表格</p>
+				<h1 class="page-header">数据导出日志</h1>
+				<p>下表为之前的导出日志</p>
 			</div>
 		</div><!--/.row-->
 				
 		
-		<div class="row" >
+		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-heading"><%--<button type="button" class="btn btn-danger" ng-click="delBatch()">删除</button>--%></div>
+					<div class="panel-heading">
+						<button type="button" class="btn btn-success"  ng-click="export$()">导出</button>
+						<button type="button" class="btn btn-danger" ng-click="delBatchProcedure()">删除</button>
+					</div>
 					<div class="panel-body">
 						<table class="table table-striped table-hover">
 						    <thead>
 						    <tr>
 						        <th><input type="checkbox"  ng-model="allchecked" ng-change="checkAll(allchecked)"/></th>
-						        <th>导入时顺序</th>
-						        <th>物理表名</th>
-						        <th>表类型</th>
-						        <th>时间戳列名</th>
-						        <th>导出条件设置</th>
-						        <%--<th>过滤列</th>--%>
+						        <th>导出文件名称</th>
+						        <th>开始时间</th>
+						        <th>结束时间</th>
+						        <th>用时(s)</th>
 						        <th>操作</th>
 						    </tr>
 						    </thead>
 						    <tbody>
-						    	<tr ng-repeat="x in data">
-						    		<td><input type="checkbox" ng-checked="isChecked(x)" ng-click="updateChecked(x)" ng-model="x.isSynch"/></td>
-						    		<td><span ng-if="!x.editable">{{x.synchOrder}}</span><input type="number" class="form-control" ng-if="x.editable" ng-model="x.synchOrder"/></td>
-						    		<td>{{x.physDBName}}</td>
-									<td>
-										<span ng-if="!x.editable"><span ng-if="x.tableType==1">普通表</span><span ng-if="x.tableType==2">附件表</span></span>
-										<span ng-if="x.editable">
-											<%--<select class="form-control" ng-model="x.tableType">
-												<option ng-repeat="tableType in tableTypes" value="{{tableType.value}}">{{tableType.name}}</option>
-											</select>
-										--%>
-											<select class="form-control" ng-model="x.tableType" ng-options="tableType.value as tableType.name for tableType in tableTypes">
-												
-											</select>
-										</span>
-									</td>
-									<td><span ng-if="!x.editable">{{x.synchRecogCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.synchRecogCol"/></span></td>
-						    		<td><span ng-if="!x.editable">{{x.condition}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.condition"/></span></td>
-						    		<%--<td><span ng-if="!x.editable">{{x.filterCol}}</span><span ng-if="x.editable"><input type="text" class="form-control" ng-model="x.filterCol"/></span></td>--%>
+						    	<tr ng-repeat="x in data" >
+						    		<td><input type="checkbox"  ng-click="updateChecked(x)" ng-model="x.isSelected"/></td>
+						    		<td><span ng-if="!x.editable">{{x.fileName}}</span></td>
+						    		<td><span ng-if="!x.editable">{{x.startDate}}</span></td>
+						    		<td><span ng-if="!x.editable">{{x.endDate}}</span></td>
+						    		<td><span ng-if="!x.editable">{{x.usedDate}}s</span></td>
 						    		<td>
-						    			<span class="btn btn-primary btn-xs" title="编辑" ng-click="x.editable=true" ng-if="!x.editable"><i class="glyphicon glyphicon-pencil"></i></span>
-						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="save(x)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-						    			<span class="btn btn-primary btn-xs" title="删除" ng-click="del(x)"><i class="glyphicon glyphicon glyphicon-remove"></i></span>
+						    			<span class="btn btn-primary btn-xs" title="查看详细导出日志" ng-click="moreInfo(x)"><i class="glyphicon glyphicon-info-sign"></i></span>
+						    			<%--<span class="btn btn-primary btn-xs" title="下载导出包" ng-click="download(x)"><i class="glyphicon  glyphicon-download"></i></span>--%>
 						    		</td>
 						    	</tr>
 						    </tbody>
@@ -176,11 +162,43 @@
 					</div>
 				</div>
 			</div>
-		</div><!--/.row-->	
+		</div><!--/.row-->
 		<!-- Pagination -->
 		<tm-pagination conf="paginationConf"></tm-pagination>
 	</div><!--/.main-->
-
+	<!-- 模态窗口 -->
+	<div class="modal fade"  id="moreInfoWin">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel"></h4>
+	      </div>
+	      <div class="modal-body">
+	        	<table class="table table-striped table-hover">
+						    <thead>
+						    <tr>
+						        <th>物理表名称</th>
+						        <th>导出条数</th>
+						    </tr>
+						    </thead>
+						    <tbody>
+						    	<tr ng-repeat="x in detailList" >
+						    		<td><span>{{x.expPhysDBName}}</span></td>
+						    		<td><span>{{x.expDatas}}</span></td>
+						    	</tr>
+						    </tbody>
+						</table>
+	      </div>
+	      <div class="modal-footer">
+	       		<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<form action="export/export.do" id="downloadForm">
+			<button type="submit"  style="display:none" id="downloadSubmit"></button>
+	</form>
 </body>
 
 </html>

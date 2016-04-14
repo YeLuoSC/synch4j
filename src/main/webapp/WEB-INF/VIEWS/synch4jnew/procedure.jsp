@@ -77,9 +77,9 @@
 		</form>
 		<ul class="nav menu">
 			<li><a href="config2.do"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
-			<li class="active"><a href="procedure2.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
-			<li><a href="export2.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
-			<li><a href="import2.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
+			<li class="active"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
+			<li><a href="export.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
+			<li><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
 			<%--<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>--%>
 			<li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
@@ -147,7 +147,7 @@
 						    </thead>
 						    <tbody>
 						    	<tr ng-repeat="x in data"  ng-hide="x.hidden==true">
-						    		<td><input type="checkbox" ng-checked="isChecked(x)" ng-click="updateChecked(x)" ng-model="x.isSynch"/></td>
+						    		<td><input type="checkbox"  ng-click="updateChecked(x)" ng-model="x.isSelected"/></td>
 						    		<td><span ng-if="!x.editable">{{x.name}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.name"/></td>
 						    		<td><span ng-if="!x.editable">{{x.describe}}</span><input type="text" class="form-control" ng-if="x.editable" ng-model="x.describe"/></td>
 									<td>
@@ -163,7 +163,7 @@
 						    		<td>
 						    			<span class="btn btn-primary btn-xs" title="编辑" ng-click="x.editable=true" ng-if="!x.editable"><i class="glyphicon glyphicon-pencil"></i></span>
 						    			<span class="btn btn-primary btn-xs" title="保存" ng-click="save(x)" ng-if="x.editable"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-						    			<span class="btn btn-primary btn-xs" title="删除" ng-click="del(x,$index)"><i class="glyphicon glyphicon glyphicon-remove"></i></span>
+						    			<span class="btn btn-primary btn-xs" title="删除" ng-click="del(x,$index)"><i class="glyphicon glyphicon-remove"></i></span>
 						    		</td>
 						    	</tr>
 						    </tbody>

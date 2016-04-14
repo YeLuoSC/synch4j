@@ -2,6 +2,7 @@ package com.synch4j.fascade.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,12 +62,12 @@ public class SynchBeginImpl implements ISynchBegin{
 	}
 
 	@Override
-	public void CommonExport() throws ErrorConfigureException,
+	public void CommonExport(OutputStream out) throws ErrorConfigureException,
 			CallbackException, NotSupportAppIdException, DataPickerException,
 			IOException {
 		IBaseExportStrategy exportStrategy = (IBaseExportStrategy)SpringContextHolder.getContext().getBean("commonExportStrategy");
 		context.setExportStrategy(exportStrategy);
-		context.export();
+		context.export(out);
 	}
 
 }

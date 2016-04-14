@@ -53,4 +53,13 @@ public class Synch4jController {
 		map.put("result", "删除成功");
 		return map;
 	}
+	
+	@RequestMapping(value = "/delBatch")
+	@ResponseBody
+	public Object delBatch(@RequestBody List<String> tableNames) throws Exception{
+		//synch4jConfigServiceImpl.delSynchPO(tableName);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("result", "删除成功");
+		return map;
+	}
 }
