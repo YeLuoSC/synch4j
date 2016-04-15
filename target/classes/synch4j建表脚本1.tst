@@ -1,5 +1,4 @@
-PL/SQL Developer Test script 3.0
-215
+--PL/SQL Developer Test script 3.0
 -- Created on 2016/4/3 by XIE 
 declare 
   i integer;

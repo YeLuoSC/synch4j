@@ -18,6 +18,7 @@
 <script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>  
 <script src="<%=path %>/scripts/synch4jnew/export.js"></script>
 <script src="<%=path %>/scripts/js/tm.pagination.js"></script>
+<script src="<%=path %>/scripts/js/jquery.blockUI.min.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>--%>
 <script>
 	!function ($) {
@@ -81,7 +82,7 @@
 			<li class="active"><a href="#"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
 			<li><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
 			<%--<li><a href="forms.html"><span class="glyphicon glyphicon-pencil"></span> Forms</a></li>--%>
-			<li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
+			<li><a href="https://github.com/YeLuoSC/synch4j"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
 				<a href="#">
 					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
@@ -131,7 +132,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<button type="button" class="btn btn-success"  ng-click="export$()">导出</button>
-						<button type="button" class="btn btn-danger" ng-click="delBatchProcedure()">删除</button>
+						<button type="button" class="btn btn-danger" ng-click="delBatch()">删除</button>
 					</div>
 					<div class="panel-body">
 						<table class="table table-striped table-hover">
@@ -146,7 +147,7 @@
 						    </tr>
 						    </thead>
 						    <tbody>
-						    	<tr ng-repeat="x in data" >
+						    	<tr ng-repeat="x in data"  ng-hide="x.hidden==true">
 						    		<td><input type="checkbox"  ng-click="updateChecked(x)" ng-model="x.isSelected"/></td>
 						    		<td><span ng-if="!x.editable">{{x.fileName}}</span></td>
 						    		<td><span ng-if="!x.editable">{{x.startDate}}</span></td>

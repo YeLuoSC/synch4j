@@ -10,4 +10,6 @@ public interface ISynch4jImportService {
 	public PageInfo getImportMainLog(PageInfo pageInfo);
 
 	public List<SynchImpLogPO> getImportDetail(String logId);
+
+	public void delBatch(List<String> list);
 }

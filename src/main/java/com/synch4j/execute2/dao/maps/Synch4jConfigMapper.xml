@@ -21,7 +21,7 @@
 		  FROM P#SYNCH_T_SETTING A
 		 RIGHT JOIN SYNCH_V_USERTABLE B
 		    ON A.PHYSDBNAME = B.PHYSDBNAME
-		     WHERE 1 = 1
+		     WHERE 1 = 1 AND B.PHYSDBNAME NOT LIKE 'P#SYNCH_T_%' 
 		     <if test="physDBName != null">
 				AND B.PHYSDBNAME LIKE '%${physDBName}%'     
 		     </if>

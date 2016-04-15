@@ -13,4 +13,5 @@ public interface Synch4jExportMapper extends SuperMapper{
 
 	public List<SynchExpLogPO> getExportDetail(@Param("logId")String logId);
 
+	public void delBatch(@Param("list")List<String> list);
 }

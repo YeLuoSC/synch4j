@@ -10,4 +10,6 @@ public interface ISynch4jExportService {
 	public PageInfo getExportMainLog(PageInfo pageInfo);
 
 	public List<SynchExpLogPO> getExportDetail(String logId);
+	
+	public void delBatch(List<String> list);
 }

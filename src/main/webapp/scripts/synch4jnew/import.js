@@ -24,8 +24,30 @@ app.controller('myCtrl',function($scope,$http,importService){
 		importService.moreInfo(po,$scope);
 	};
 	
+	$scope.showImportWin = function(){
+		$("#uploadWin").modal('show');
+	}
 	$scope.import$ = function(){
-		importService.import$();
+		$.blockUI();
+		$.ajaxFileUpload({
+			 fileElementId:'fileName', 
+			 secureuri: false, //一般设置为false
+			 url:'import/import.do',
+			 dataType:'json', 
+			 type:'post',  
+			 success: function (data, status){  
+				 $.unblockUI();
+				 if(data.success){ 
+					 alert("导入成功");    
+				 }else{
+					 alert(data.erroInfo);  
+				 }
+			 },
+            error : function(data){
+            	$.unblockUI();
+				alert("导入失败");  
+            }
+		 });  
 	}
 	$scope.del = function(po,index){
 		importService.del(po,index);
@@ -38,8 +60,8 @@ app.controller('myCtrl',function($scope,$http,importService){
 			po.isSelected = false;
 	};
 	
-	$scope.delBatchProcedure = function(){
-		importService.delBatchProcedure($scope.data);
+	$scope.delBatch = function(){
+		importService.delBatch($scope.data);
 	};
 });
 
@@ -82,18 +104,18 @@ app.service('importService',function($http){
 	};
 	
 	this.import$ = function(){
-		$("#downloadForm").submit();
+		
 	}
-	this.delBatchProcedure = function(arr){
+	this.delBatch = function(arr){
 		var idArr = new Array();
 		angular.forEach(arr, function(po,index,array){
 			 //data等价于array[index]
 			if(po.isSelected == true){
-				idArr.push(po.guid);
+				idArr.push(po.logId);
 			}
 		});
 		if(idArr.length > 0){
-			$http.post("procedure/delRemoteProcedure.do",idArr).success(function(response){
+			$http.post("import/delBatch.do",idArr).success(function(response){
 				angular.forEach(arr, function(po,index,array){
 					 //data等价于array[index]
 					if(po.isSelected == true){

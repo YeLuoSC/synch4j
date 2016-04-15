@@ -10,4 +10,10 @@
 		select * from P#SYNCH_T_EXPORTLOG where logId=#{logId} order by dbversion desc
 	</select>	
 	
+	<delete id="delBatch">
+		begin
+			delete from P#SYNCH_T_MAINLOG WHERE LOGID IN <foreach collection="list" item="item" separator="," open="(" close=")">#{item}</foreach>;
+			delete from P#SYNCH_T_EXPORTLOG WHERE LOGID IN <foreach collection="list" item="item" separator="," open="(" close=")">#{item}</foreach>;
+		end;
+	</delete>
 </mapper>

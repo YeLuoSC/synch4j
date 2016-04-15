@@ -12,4 +12,6 @@ public interface Synch4jImportMapper extends SuperMapper{
 	public List getImportMainLog();
 
 	public List<SynchImpLogPO> getImportDetail(@Param("logId")String logId);
+	
+	public void delBatch(@Param("list")List<String> list);
 }

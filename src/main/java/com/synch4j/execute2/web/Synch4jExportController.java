@@ -1,6 +1,8 @@
 package com.synch4j.execute2.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -78,4 +80,12 @@ public class Synch4jExportController {
 		}
 	}
 	
+	@RequestMapping(value="/delBatch")
+	@ResponseBody
+	public Object delBatch(@RequestBody List<String> list){
+		synch4jExportServiceImpl.delBatch(list);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("success", "删除成功");
+		return map;
+	}
 }

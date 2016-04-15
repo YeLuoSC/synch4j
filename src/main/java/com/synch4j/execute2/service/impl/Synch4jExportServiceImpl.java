@@ -32,6 +32,11 @@ public class Synch4jExportServiceImpl implements ISynch4jExportService{
 		
 		return synch4jExportMapper.getExportDetail(logId);
 	}
+
+	@Override
+	public void delBatch(List<String> list) {
+		synch4jExportMapper.delBatch(list);
+	}
 	
 
 }

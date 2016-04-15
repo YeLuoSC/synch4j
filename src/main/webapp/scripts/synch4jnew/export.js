@@ -29,6 +29,7 @@ app.controller('myCtrl',function($scope,$http,exportService){
 	};
 	
 	$scope.export$ = function(){
+		$.blockUI();
 		exportService.export$();
 	}
 	$scope.del = function(po,index){
@@ -42,8 +43,8 @@ app.controller('myCtrl',function($scope,$http,exportService){
 			po.isSelected = false;
 	};
 	
-	$scope.delBatchProcedure = function(){
-		exportService.delBatchProcedure($scope.data);
+	$scope.delBatch = function(){
+		exportService.delBatch($scope.data);
 	};
 });
 
@@ -87,17 +88,22 @@ app.service('exportService',function($http){
 	
 	this.export$ = function(){
 		$("#downloadForm").submit();
+		//暂时先这样处理
+		window.setTimeout(function(){
+			$.unblockUI();
+		},10000)
+		
 	}
-	this.delBatchProcedure = function(arr){
+	this.delBatch = function(arr){
 		var idArr = new Array();
 		angular.forEach(arr, function(po,index,array){
 			 //data等价于array[index]
 			if(po.isSelected == true){
-				idArr.push(po.guid);
+				idArr.push(po.logId);
 			}
 		});
 		if(idArr.length > 0){
-			$http.post("procedure/delRemoteProcedure.do",idArr).success(function(response){
+			$http.post("export/delBatch.do",idArr).success(function(response){
 				angular.forEach(arr, function(po,index,array){
 					 //data等价于array[index]
 					if(po.isSelected == true){

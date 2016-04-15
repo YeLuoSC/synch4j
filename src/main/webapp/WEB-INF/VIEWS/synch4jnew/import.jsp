@@ -15,9 +15,11 @@
 <script src="<%=path %>/scripts/js/jquery-1.11.1.min.js"></script>
 <script src="<%=path %>/scripts/js/angular.min.js"></script>
 <script src="<%=path %>/scripts/js/bootstrap.min.js"></script>
+<script src="<%=path %>/scripts/js/ajaxfileupload.js"></script>
 <script type="text/javascript" src="<%=path %>/scripts/synch4j/js/json2.js"></script>  
 <script src="<%=path %>/scripts/synch4jnew/import.js"></script>
 <script src="<%=path %>/scripts/js/tm.pagination.js"></script>
+<script src="<%=path %>/scripts/js/jquery.blockUI.min.js"></script>
 <%--<script src="<%=path %>/scripts/js/bootstrap-table.js"></script>--%>
 <script>
 	!function ($) {
@@ -78,9 +80,9 @@
 		<ul class="nav menu">
 			<li><a href="config2.do"><span class="glyphicon glyphicon-list-alt"></span>数据同步设置</a></li>
 			<li><a href="procedure.do"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
-			<li class="active"><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
-			<li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
+			<li><a href="export.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
+			<li class="active"><a href="#"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
+			<li><a href="https://github.com/YeLuoSC/synch4j"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
 				<a href="#">
 					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 
@@ -129,8 +131,8 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<button type="button" class="btn btn-primary"  ng-click="import$()">导入</button>
-						<button type="button" class="btn btn-danger" ng-click="delBatchProcedure()">删除</button>
+						<button type="button" class="btn btn-primary"  ng-click="showImportWin()">导入</button>
+						<button type="button" class="btn btn-danger" ng-click="delBatch()">删除</button>
 					</div>
 					<div class="panel-body">
 						<table class="table table-striped table-hover">
@@ -145,7 +147,7 @@
 						    </tr>
 						    </thead>
 						    <tbody>
-						    	<tr ng-repeat="x in data" >
+						    	<tr ng-repeat="x in data" ng-hide="x.hidden==true">
 						    		<td><input type="checkbox"  ng-click="updateChecked(x)" ng-model="x.isSelected"/></td>
 						    		<td><span ng-if="!x.editable">{{x.fileName}}</span></td>
 						    		<td><span ng-if="!x.editable">{{x.startDate}}</span></td>
@@ -195,9 +197,31 @@
 	    </div>
 	  </div>
 	</div>
-	<form action="export/export.do" id="downloadForm">
-			<button type="submit"  style="display:none" id="downloadSubmit"></button>
-	</form>
+	
+
+	<!-- 模态窗口 -->
+	<div class="modal fade"  id="uploadWin">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">压缩包上传</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="form-group">
+	        	<form action="import/import.do" method="post" enctype="multipart/form-data" id="uploadForm">
+	        		<label for="exampleInputFile">请选择相应的导出ZIP文件：</label>
+	        		<input type="file" id="fileName" name="fileName"/><br>
+	        	</form>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	      		<button type="button" class="btn btn-success" ng-click="import$()">导入</button>
+	       		<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 
 </html>

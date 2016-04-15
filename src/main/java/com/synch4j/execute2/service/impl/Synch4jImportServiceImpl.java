@@ -32,4 +32,9 @@ public class Synch4jImportServiceImpl implements ISynch4jImportService{
 		return synch4jImportMapper.getImportDetail(logId);
 	}
 
+	@Override
+	public void delBatch(List<String> list) {
+		synch4jImportMapper.delBatch(list);
+	}
+
 }

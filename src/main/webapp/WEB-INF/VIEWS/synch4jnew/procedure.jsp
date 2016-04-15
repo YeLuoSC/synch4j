@@ -80,7 +80,7 @@
 			<li class="active"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>远程脚本执行设置</a></li>
 			<li><a href="export.do"><span class="glyphicon glyphicon-th"></span>标准模式导出</a></li>
 			<li><a href="import.do"><span class="glyphicon glyphicon-pencil"></span>数据导入</a></li>
-			<li><a href="about.do"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
+			<li><a href="https://github.com/YeLuoSC/synch4j"><span class="glyphicon glyphicon-info-sign"></span>关于作者</a></li>
 			<%--<li class="parent ">
 				<a href="#">
 					<span class="glyphicon glyphicon-list"></span> Dropdown <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span> 

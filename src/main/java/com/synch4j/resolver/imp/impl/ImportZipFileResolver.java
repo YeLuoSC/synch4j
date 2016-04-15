@@ -151,10 +151,6 @@ public class ImportZipFileResolver implements IImportResolver{
 				try{
 					String[] tmpStrArr = dataSrc.split(",");
 					String exportMode = tmpStrArr[0].split(":")[1];
-					String sourceProvince = tmpStrArr[1].split(":")[1];
-					String sourceYear = tmpStrArr[2].split(":")[1];
-					String appId = tmpStrArr[3].split(":")[1];
-					String destProvince = tmpStrArr[4].split(":")[1];
 					
 					//context.setSourceProvince(sourceProvince);
 					//这里是否需要回调？
