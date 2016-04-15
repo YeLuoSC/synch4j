@@ -24,15 +24,12 @@
 ##Synch4j目前应用情况
 * 目前该系统已经用于中国某政府部门，用于中央部门下发表结构及数据至各省市级的数据库
 
-##Synch4j使用入口
-* http://127.0.0.1:8080/synch4j/config.do
-* 配置完成后，进入标准模式导出，点击导出按钮即可完成压缩包的导出，
-压缩包路径为:c:\exportfile，如果是linux则在当前目录下的c:\exportfile文件夹中（可修改在配置文件中）
-* 导入：在导入方的系统环境中，通过数据导入按钮进入界面，上传文件压缩包完成导入工作
+##Synch4j使用指南
+* 详细信息可以参考我的CSDN博客，[@使用指南点击此处](http://blog.csdn.net/yeluosc/article/details/51161770)
 
-##Synch4j未来的更新
-* 目前前台界面使用的是JQX插件制作的，界面不美观且存在一些BUG，在接下来几周内将会提供一套基于
-Bootstrap+AngularJS前端框架下的界面
+##Synch4j目前现状
+* 完成了基于AngularJS+Bootstrap的前台界面开发，具体信息参见使用指南
+* 即将推出支持MySQL的异构数据库同步数据功能
 
 ##Synch4j集成环境：
 * SpringMVC + MYBATIS
