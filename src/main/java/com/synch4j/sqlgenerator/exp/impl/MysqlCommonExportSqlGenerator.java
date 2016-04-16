@@ -9,6 +9,13 @@ import com.synch4j.po.SynchPO;
 import com.synch4j.sqlgenerator.exp.IExportSqlGenerator;
 import com.synch4j.synchenum.ExportMode;
 
+/**
+ * 
+ * <p>Title: MysqlCommonExportSqlGenerator</p>
+ * <p>Description: Mysql版本的语句生成器</p>
+ * @author xie
+ * @date 2016-4-15 下午8:08:04
+ */
 public class MysqlCommonExportSqlGenerator implements IExportSqlGenerator{
 
 	@Override

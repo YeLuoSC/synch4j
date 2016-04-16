@@ -31,10 +31,17 @@ import com.synch4j.util.SynchToolUtil;
  * 该生成器按照增量导出生成SQL语句；
  * 如果未来需要非增量，重新实现一个接口，并在配置文件中修改为新的实现类beanId即可
  */
+/**
+ * 
+ * <p>Title: CommonExportSqlGenerator</p>
+ * <p>Description: Oracle版本的导出SQL语句生成器</p>
+ * @author xie
+ * @date 2016-4-15 下午8:08:30
+ */
 @Component
-public class CommonExportSqlGenerator implements IExportSqlGenerator{
+public class OracleCommonExportSqlGenerator implements IExportSqlGenerator{
 
-	Logger logger = Logger.getLogger(CommonExportSqlGenerator.class);
+	Logger logger = Logger.getLogger(OracleCommonExportSqlGenerator.class);
 	
 	@Resource
 	private IExportSqlGeneratorMapper exportSqlGeneratorMapper;
