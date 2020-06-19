@@ -34,15 +34,6 @@
 ##Synch4j集成环境：
 * SpringMVC + MYBATIS
 ##有问题反馈
-在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流
-
-* 邮件(101002552#qq.com, 把#换成@)
-* QQ: 101002552
-* CSDN: [@YeLuoSC](http://blog.csdn.net/yeluosc)
-
-**有关Synch4j更多信息可以见我的CSDN博客** 
-##捐助开发者
-
 
 
 ##关于作者
